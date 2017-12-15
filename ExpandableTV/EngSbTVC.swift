@@ -25,6 +25,52 @@ class EngSbTVC: ExpandableTVC {
     }
     
     
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 60
+    }
+    
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+//        let view = tableView.dequeueReusableCell(withIdentifier: "engSBHeaderCell_ID")!
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: Int(self.view.frame.width), height: Int(sectionHeaderViewHeight)))
+        view.backgroundColor = UIColor.orange
+        
+        let button = UIButton(type: .system)
+        button.setTitle(Titles.close, for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
+        button.addTarget(self, action: #selector(handleExpandClose), for: .touchUpInside)
+        button.tag = section
+        button.frame = view.frame
+        view.addSubview(button)
+        
+        let imageView = UIImageView(frame: CGRect(x: self.view.frame.width - 60, y: 10, width:13, height: 13))
+        imageView.contentMode = .center
+        imageView.image = self.twoDimensionalArray[section].isExpanded ? #imageLiteral(resourceName: "Down") : #imageLiteral(resourceName: "Right")
+        view.addSubview(imageView)
+        
+        let headerTitle = UILabel(frame: CGRect(x: 30, y: 15, width: self.view.frame.width, height: 20))
+        headerTitle.text = twoDimensionalArray[section].headerTitle
+        view.addSubview(headerTitle)
+        view.tag = 200 + section
+        
+        let upView = UIView(frame: CGRect(x: 10, y: 10, width: self.view.frame.width - 20, height: 1))
+        upView.backgroundColor = UIColor.lightGray
+        view.addSubview(upView)
+        
+        let rView = UIView(frame: CGRect(x: self.view.frame.width - 10, y: 10, width: 1, height: 50))
+        rView.backgroundColor = UIColor.lightGray
+        view.addSubview(rView)
+        
+        let lView = UIView(frame: CGRect(x: 10, y: 10, width: 1, height: 50))
+        lView.backgroundColor = UIColor.lightGray
+        view.addSubview(lView)
+        
+        
+        
+        return view
+    }
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> EngSbCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: engSBCellId, for: indexPath) as! EngSbCell
         let name = twoDimensionalArray[indexPath.section].names[indexPath.row]

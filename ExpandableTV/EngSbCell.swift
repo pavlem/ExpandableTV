@@ -11,10 +11,11 @@ import UIKit
 class EngSbCell: UITableViewCell {
 
     @IBOutlet weak var titleOfEng: UILabel!
-   
+    @IBOutlet weak var rV: UIView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+    
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

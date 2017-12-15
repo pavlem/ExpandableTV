@@ -19,6 +19,8 @@
 		9E23A87A1FE4014700353E73 /* EngVCCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E23A8791FE4014700353E73 /* EngVCCell.swift */; };
 		9E23A87C1FE40F9600353E73 /* EngSbTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E23A87B1FE40F9600353E73 /* EngSbTVC.swift */; };
 		9E23A87E1FE40FF400353E73 /* EngSbCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E23A87D1FE40FF400353E73 /* EngSbCell.swift */; };
+		9E23A8801FE41C3100353E73 /* StartVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E23A87F1FE41C3100353E73 /* StartVC.swift */; };
+		9E23A8821FE427AF00353E73 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E23A8811FE427AF00353E73 /* UIView+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +59,8 @@
 		9E23A8791FE4014700353E73 /* EngVCCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EngVCCell.swift; sourceTree = "<group>"; };
 		9E23A87B1FE40F9600353E73 /* EngSbTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EngSbTVC.swift; sourceTree = "<group>"; };
 		9E23A87D1FE40FF400353E73 /* EngSbCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EngSbCell.swift; sourceTree = "<group>"; };
+		9E23A87F1FE41C3100353E73 /* StartVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartVC.swift; sourceTree = "<group>"; };
+		9E23A8811FE427AF00353E73 /* UIView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,9 +119,11 @@
 				9E23A87B1FE40F9600353E73 /* EngSbTVC.swift */,
 				9E23A87D1FE40FF400353E73 /* EngSbCell.swift */,
 				9E0E216B1FD481EE00B4F26F /* Main.storyboard */,
+				9E23A87F1FE41C3100353E73 /* StartVC.swift */,
 				9E0E216E1FD481EE00B4F26F /* Assets.xcassets */,
 				9E0E21701FD481EE00B4F26F /* LaunchScreen.storyboard */,
 				9E0E21731FD481EE00B4F26F /* Info.plist */,
+				9E23A8811FE427AF00353E73 /* UIView+Extension.swift */,
 			);
 			path = ExpandableTV;
 			sourceTree = "<group>";
@@ -277,10 +283,12 @@
 				9E0E216A1FD481EE00B4F26F /* ExpandableTVC.swift in Sources */,
 				9E0E21681FD481EE00B4F26F /* AppDelegate.swift in Sources */,
 				9E23A8781FE400E200353E73 /* EngTVC.swift in Sources */,
+				9E23A8821FE427AF00353E73 /* UIView+Extension.swift in Sources */,
 				9E0E21961FD486C300B4F26F /* ExpandableCell.swift in Sources */,
 				9E23A87A1FE4014700353E73 /* EngVCCell.swift in Sources */,
 				9E23A87C1FE40F9600353E73 /* EngSbTVC.swift in Sources */,
 				9E23A87E1FE40FF400353E73 /* EngSbCell.swift in Sources */,
+				9E23A8801FE41C3100353E73 /* StartVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

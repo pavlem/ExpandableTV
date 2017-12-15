@@ -20,9 +20,9 @@ class EngTVC: ExpandableTVC {
         ]
         
         navigationItem.title = "Engagements"
-//        navigationController?.navigationBar.prefersLargeTitles = true
         tableView.register(EngVCCell.self, forCellReuseIdentifier: cellId)
         print("PAJA")
+        tableView.separatorStyle = .none
     }
 
     
@@ -31,6 +31,10 @@ class EngTVC: ExpandableTVC {
         let name = twoDimensionalArray[indexPath.section].names[indexPath.row]
         cell.textLabel?.text = name
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 60
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
