@@ -16,11 +16,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
-        window = UIWindow()
-        window?.makeKeyAndVisible()
-        
-        let navController = UINavigationController(rootViewController: ViewController())
-        window?.rootViewController = navController
+//        window = UIWindow()
+//        window?.makeKeyAndVisible()
+////        let navController = UINavigationController(rootViewController: ExpandableTVC())
+//        let navController = UINavigationController(rootViewController: EngTVC())
+//        window?.rootViewController = navController
         
         return true
     }

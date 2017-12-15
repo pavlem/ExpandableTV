@@ -12,9 +12,7 @@ class ExpandableCell: UITableViewCell {
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
-//      backgroundColor = .red
-        
+                
         // kind of cheat and use a hack
         let starButton = UIButton(type: .system)
         starButton.setImage(#imageLiteral(resourceName: "Star"), for: .normal)

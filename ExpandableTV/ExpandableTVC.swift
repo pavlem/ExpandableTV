@@ -19,7 +19,7 @@ struct Titles {
     static let close = "close"
 }
 
-class ViewController: UITableViewController {
+class ExpandableTVC: UITableViewController {
     
     let cellId = "cell_ID"
     
@@ -37,7 +37,7 @@ class ViewController: UITableViewController {
         super.viewDidLoad()
         
         navigationItem.title = "Contacts"
-        navigationController?.navigationBar.prefersLargeTitles = true
+//        navigationController?.navigationBar.prefersLargeTitles = true
         tableView.register(ExpandableCell.self, forCellReuseIdentifier: cellId)
     }
     
