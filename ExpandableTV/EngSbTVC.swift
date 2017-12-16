@@ -23,20 +23,15 @@ class EngSbTVC: ExpandableTVC {
         
         navigationItem.title = "Engagements SB"
     }
-    
-    
-    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 60
-    }
-    
+
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
 //        let view = tableView.dequeueReusableCell(withIdentifier: "engSBHeaderCell_ID")!
         let view = UIView(frame: CGRect(x: 0, y: 0, width: Int(self.view.frame.width), height: Int(sectionHeaderViewHeight)))
         view.backgroundColor = UIColor.blue
         
-        let backView = UIView(frame: CGRect(x: 10, y: 10, width: self.view.frame.width - 20, height: 50))
-        backView.backgroundColor = UIColor.red
+        let backView = UIView(frame: CGRect(x: 10, y: 0, width: self.view.frame.width - 20, height: 60))
+        backView.backgroundColor = UIColor.lightGray
         view.addSubview(backView)
         
         let button = UIButton(type: .system)
@@ -74,6 +69,22 @@ class EngSbTVC: ExpandableTVC {
         
         return view
     }
+
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 60
+    }
+    
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return twoDimensionalArray.count
+    }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if !twoDimensionalArray[section].isExpanded {
+            return 0
+        }
+        
+        return twoDimensionalArray[section].names.count
+    }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> EngSbCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: engSBCellId, for: indexPath) as! EngSbCell
@@ -82,8 +93,20 @@ class EngSbTVC: ExpandableTVC {
         return cell
     }
     
+    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        if !twoDimensionalArray[section].isExpanded {
+            return nil
+        }
+        let sectionFooterView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 10))
+        sectionFooterView.backgroundColor = UIColor.orange
+        return sectionFooterView
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 10
+    }
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        super.tableView(tableView, didSelectRowAt: indexPath)
         print(indexPath)
     }
     

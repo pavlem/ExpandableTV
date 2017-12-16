@@ -11,10 +11,17 @@ import UIKit
 class EngSbCell: UITableViewCell {
 
     @IBOutlet weak var titleOfEng: UILabel!
-    @IBOutlet weak var rV: UIView!
+    @IBOutlet weak var backgroundRect: UIView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+//        backgroundRect.layer.shadowColor = UIColor.black.cgColor
+//        backgroundRect.layer.shadowOpacity = 1
+//        backgroundRect.layer.shadowOffset = CGSize.zero
+//        backgroundRect.layer.shadowRadius = 20
+        backgroundRect.setLayerShadow(color: UIColor.black, offset: CGSize(width: 6, height: 5), radius: 1)
+
     
     }
 

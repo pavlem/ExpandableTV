@@ -37,7 +37,6 @@ class ExpandableTVC: UITableViewController {
         super.viewDidLoad()
         
         navigationItem.title = "Contacts"
-//        navigationController?.navigationBar.prefersLargeTitles = true
         tableView.register(ExpandableCell.self, forCellReuseIdentifier: cellId)
     }
     
