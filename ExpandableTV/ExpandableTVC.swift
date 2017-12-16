@@ -81,8 +81,7 @@ class ExpandableTVC: UITableViewController {
         }
         
         let hView = tableView.viewWithTag(200 + button.tag)
-        if let imageView = hView?.subviews[1] as? UIImageView {
-            
+        for imageView in hView!.subviews where (imageView is UIImageView) {
             UIView.animate(withDuration: 0.2) {
                 imageView.transform = imageView.transform.rotated(by: self.twoDimensionalArray[section].isExpanded ? -.pi/2 : .pi/2)
             }

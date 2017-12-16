@@ -33,7 +33,11 @@ class EngSbTVC: ExpandableTVC {
         
 //        let view = tableView.dequeueReusableCell(withIdentifier: "engSBHeaderCell_ID")!
         let view = UIView(frame: CGRect(x: 0, y: 0, width: Int(self.view.frame.width), height: Int(sectionHeaderViewHeight)))
-        view.backgroundColor = UIColor.orange
+        view.backgroundColor = UIColor.blue
+        
+        let backView = UIView(frame: CGRect(x: 10, y: 10, width: self.view.frame.width - 20, height: 50))
+        backView.backgroundColor = UIColor.red
+        view.addSubview(backView)
         
         let button = UIButton(type: .system)
         button.setTitle(Titles.close, for: .normal)
@@ -54,19 +58,19 @@ class EngSbTVC: ExpandableTVC {
         view.addSubview(headerTitle)
         view.tag = 200 + section
         
-        let upView = UIView(frame: CGRect(x: 10, y: 10, width: self.view.frame.width - 20, height: 1))
-        upView.backgroundColor = UIColor.lightGray
-        view.addSubview(upView)
+
         
-        let rView = UIView(frame: CGRect(x: self.view.frame.width - 10, y: 10, width: 1, height: 50))
-        rView.backgroundColor = UIColor.lightGray
-        view.addSubview(rView)
-        
-        let lView = UIView(frame: CGRect(x: 10, y: 10, width: 1, height: 50))
-        lView.backgroundColor = UIColor.lightGray
-        view.addSubview(lView)
-        
-        
+//        let upView = UIView(frame: CGRect(x: 10, y: 10, width: self.view.frame.width - 20, height: 1))
+//        upView.backgroundColor = UIColor.lightGray
+//        view.addSubview(upView)
+//
+//        let rView = UIView(frame: CGRect(x: self.view.frame.width - 10, y: 10, width: 1, height: 50))
+//        rView.backgroundColor = UIColor.lightGray
+//        view.addSubview(rView)
+//
+//        let lView = UIView(frame: CGRect(x: 10, y: 10, width: 1, height: 50))
+//        lView.backgroundColor = UIColor.lightGray
+//        view.addSubview(lView)
         
         return view
     }
@@ -79,7 +83,6 @@ class EngSbTVC: ExpandableTVC {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
         super.tableView(tableView, didSelectRowAt: indexPath)
         print(indexPath)
     }
