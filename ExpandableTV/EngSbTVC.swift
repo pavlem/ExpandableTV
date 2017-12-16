@@ -27,12 +27,22 @@ class EngSbTVC: ExpandableTVC {
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
 //        let view = tableView.dequeueReusableCell(withIdentifier: "engSBHeaderCell_ID")!
-        let view = UIView(frame: CGRect(x: 0, y: 0, width: Int(self.view.frame.width), height: Int(sectionHeaderViewHeight)))
-        view.backgroundColor = UIColor.blue
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: Int(self.view.frame.width), height: 60))
+        view.backgroundColor = UIColor.white
         
-        let backView = UIView(frame: CGRect(x: 10, y: 0, width: self.view.frame.width - 20, height: 60))
-        backView.backgroundColor = UIColor.white
-        view.addSubview(backView)
+        let backgroundRect = UIView(frame: CGRect(x: 10, y: 10, width: self.view.frame.width - 20, height: 40))
+        backgroundRect.backgroundColor = UIColor.white
+        backgroundRect.layer.shadowColor = UIColor.black.cgColor
+        backgroundRect.layer.shadowOpacity = 0.5
+        backgroundRect.layer.shadowOffset = CGSize(width: 0, height: 0)
+        backgroundRect.layer.shadowRadius = 2
+        
+        view.addSubview(backgroundRect)
+        
+        
+//        let backgroundRect2 = UIView(frame: CGRect(x: 10, y: 50, width: self.view.frame.width - 20, height: 30))
+//        backgroundRect2.backgroundColor = UIColor.white
+//        view.addSubview(backgroundRect2)
         
         let button = UIButton(type: .system)
         button.setTitle(Titles.close, for: .normal)
