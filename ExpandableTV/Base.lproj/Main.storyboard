@@ -121,8 +121,11 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="itv-Wa-ONP">
-                                            <rect key="frame" x="10" y="0.0" width="355" height="60"/>
-                                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <rect key="frame" x="10" y="-10" width="355" height="80"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="80" id="DWt-7c-Yhv"/>
+                                            </constraints>
                                         </view>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Uo-tn-JCA">
                                             <rect key="frame" x="16" y="19" width="273" height="21"/>
@@ -134,8 +137,7 @@
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="itv-Wa-ONP" firstAttribute="leading" secondItem="0e9-30-OKM" secondAttribute="leading" constant="10" id="Tjw-eg-TmH"/>
-                                        <constraint firstItem="itv-Wa-ONP" firstAttribute="top" secondItem="0e9-30-OKM" secondAttribute="top" id="XlQ-SW-cuO"/>
-                                        <constraint firstAttribute="bottom" secondItem="itv-Wa-ONP" secondAttribute="bottom" constant="-0.5" id="hIW-8c-rMU"/>
+                                        <constraint firstItem="itv-Wa-ONP" firstAttribute="top" secondItem="0e9-30-OKM" secondAttribute="top" constant="-10" id="XlQ-SW-cuO"/>
                                         <constraint firstAttribute="trailing" secondItem="itv-Wa-ONP" secondAttribute="trailing" constant="10" id="sDc-Eu-TVU"/>
                                     </constraints>
                                 </tableViewCellContentView>
