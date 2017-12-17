@@ -19,17 +19,10 @@ struct Titles {
     static let close = "close"
 }
 
-//protocol ExpandableTVCProtocolDelegate: class {
-//    func toggleHeaderSection(section: Int)
-//}
-
 class ExpandableTVC: UITableViewController {
     
-//    weak var delegate: ExpandableTVCProtocolDelegate?
-    
-    let cellId = "cell_ID"
-    
-    let sectionHeaderViewHeight = CGFloat(46)
+    //MARK: - API
+    var sectionHeaderViewHeight = CGFloat(46)
     
     var twoDimensionalArray = [
         ExpandableNames(isExpanded: true, names: ["Row - 01", "Row - 02", "Row - 03", "Row - 04", "Row - 05", "Row - 06"], headerTitle: "Section - 0"),
@@ -37,13 +30,17 @@ class ExpandableTVC: UITableViewController {
         ExpandableNames(isExpanded: true, names: ["Row - 20", "Row - 21"], headerTitle: "Section - 2"),
         ExpandableNames(isExpanded: true, names: ["Row - 30", "Row - 31", "Row - 32", "Row - 33"], headerTitle: "Section - 3"),
         ExpandableNames(isExpanded: true, names: ["Row - 40", "Row - 41", "Row - 42"], headerTitle: "Section - 4")
-        ]
+    ]
     
+    //MARK: - Properties
+    //Constants
+    let expandableCellId = "expandableCell_ID"
+
+    //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.title = "Contacts"
-        tableView.register(ExpandableCell.self, forCellReuseIdentifier: cellId)
+        tableView.register(ExpandableCell.self, forCellReuseIdentifier: expandableCellId)
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -126,7 +123,7 @@ class ExpandableTVC: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! ExpandableCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: expandableCellId, for: indexPath) as! ExpandableCell
         let name = twoDimensionalArray[indexPath.section].names[indexPath.row]
         cell.textLabel?.text = name
         return cell

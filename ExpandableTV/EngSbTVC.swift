@@ -16,7 +16,8 @@ class EngSbTVC: ExpandableTVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        //Set custom properties
+        sectionHeaderViewHeight = CGFloat(60)
         
         twoDimensionalArray = [
             ExpandableNames(isExpanded: true, names: ["Row - 00", "Row - 01", "Row - 02", "Row - 03", "Row - 04", "Row - 05"], headerTitle: "Section - 0"),
@@ -27,17 +28,12 @@ class EngSbTVC: ExpandableTVC {
     }
 
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        
 //        let view = tableView.dequeueReusableCell(withIdentifier: "engSBHeaderCell_ID")!
-        
-        
         let headerView = UIView(frame: CGRect(x: 0, y: 0, width: Int(self.view.frame.width), height: 60))
         headerView.backgroundColor = UIColor.white
         
         let backgroundRect = UIView(frame: CGRect(x: 10, y: 10, width: self.view.frame.width - 20, height: 40))
-        
         UIView.setCustomShadow(mainView: headerView, shadowView: backgroundRect)
-        
         if self.twoDimensionalArray[section].isExpanded {
             backgroundRect.frame.size.height = 70
         }
@@ -49,11 +45,9 @@ class EngSbTVC: ExpandableTVC {
         
         if self.twoDimensionalArray[section].isExpanded {
             let viewBlocker = UIView(frame: CGRect(x: 10, y: headerView.frame.height - 20, width: self.view.frame.width - 20, height: 40))
-//            UIView.setCustomShadow(mainView: headerView, shadowView: viewBlocker)
             viewBlocker.backgroundColor = .white
             headerView.addSubview(viewBlocker)
         }
-        
         
         let button = UIButton(type: .system)
         button.setTitle(self.twoDimensionalArray[section].isExpanded ? Titles.close : Titles.open, for: .normal)
@@ -87,7 +81,7 @@ class EngSbTVC: ExpandableTVC {
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 60
+        return sectionHeaderViewHeight
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {

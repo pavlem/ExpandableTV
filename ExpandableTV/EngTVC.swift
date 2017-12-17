@@ -20,14 +20,14 @@ class EngTVC: ExpandableTVC {
         ]
         
         navigationItem.title = "Engagements"
-        tableView.register(EngVCCell.self, forCellReuseIdentifier: cellId)
+        tableView.register(EngVCCell.self, forCellReuseIdentifier: expandableCellId)
         print("PAJA")
         tableView.separatorStyle = .none
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! EngVCCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: expandableCellId, for: indexPath) as! EngVCCell
         let name = twoDimensionalArray[indexPath.section].names[indexPath.row]
         cell.textLabel?.text = name
         return cell
