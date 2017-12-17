@@ -20,6 +20,8 @@
 		9E23A87C1FE40F9600353E73 /* EngSbTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E23A87B1FE40F9600353E73 /* EngSbTVC.swift */; };
 		9E23A87E1FE40FF400353E73 /* EngSbCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E23A87D1FE40FF400353E73 /* EngSbCell.swift */; };
 		9E23A8821FE427AF00353E73 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E23A8811FE427AF00353E73 /* Extensions.swift */; };
+		9EF1BEC81FE6C32F00B953E3 /* BaseExpandableTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF1BEC71FE6C32F00B953E3 /* BaseExpandableTVC.swift */; };
+		9EF1BECA1FE6C34A00B953E3 /* BaseExpandableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF1BEC91FE6C34A00B953E3 /* BaseExpandableCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +61,8 @@
 		9E23A87B1FE40F9600353E73 /* EngSbTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EngSbTVC.swift; sourceTree = "<group>"; };
 		9E23A87D1FE40FF400353E73 /* EngSbCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EngSbCell.swift; sourceTree = "<group>"; };
 		9E23A8811FE427AF00353E73 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		9EF1BEC71FE6C32F00B953E3 /* BaseExpandableTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseExpandableTVC.swift; sourceTree = "<group>"; };
+		9EF1BEC91FE6C34A00B953E3 /* BaseExpandableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseExpandableCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +114,8 @@
 			isa = PBXGroup;
 			children = (
 				9E0E21671FD481EE00B4F26F /* AppDelegate.swift */,
+				9EF1BEC71FE6C32F00B953E3 /* BaseExpandableTVC.swift */,
+				9EF1BEC91FE6C34A00B953E3 /* BaseExpandableCell.swift */,
 				9E0E21691FD481EE00B4F26F /* ExpandableTVC.swift */,
 				9E0E21951FD486C300B4F26F /* ExpandableCell.swift */,
 				9E23A8771FE400E200353E73 /* EngTVC.swift */,
@@ -281,9 +287,11 @@
 				9E0E21681FD481EE00B4F26F /* AppDelegate.swift in Sources */,
 				9E23A8781FE400E200353E73 /* EngTVC.swift in Sources */,
 				9E23A8821FE427AF00353E73 /* Extensions.swift in Sources */,
+				9EF1BECA1FE6C34A00B953E3 /* BaseExpandableCell.swift in Sources */,
 				9E0E21961FD486C300B4F26F /* ExpandableCell.swift in Sources */,
 				9E23A87A1FE4014700353E73 /* EngVCCell.swift in Sources */,
 				9E23A87C1FE40F9600353E73 /* EngSbTVC.swift in Sources */,
+				9EF1BEC81FE6C32F00B953E3 /* BaseExpandableTVC.swift in Sources */,
 				9E23A87E1FE40FF400353E73 /* EngSbCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

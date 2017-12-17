@@ -31,12 +31,14 @@ class ExpandableTVC: UITableViewController {
         titleClose = close
     }
 
+   
+
     //MARK: - Properties
-    //Vars
+    // Vars
     private var titleOpen: String?
     private var titleClose: String?
     //Constants
-    private let expandableCellId = "expandableCell_ID"
+    let expandableCellId = "expandableCell_ID"
 
     //MARK: - Lifecycle
     override func viewDidLoad() {
