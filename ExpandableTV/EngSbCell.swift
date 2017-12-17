@@ -16,11 +16,13 @@ class EngSbCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        backgroundRect.backgroundColor = UIColor.white
-        backgroundRect.layer.shadowColor = UIColor.black.cgColor
-        backgroundRect.layer.shadowOpacity = 0.5
-        backgroundRect.layer.shadowOffset = CGSize(width: 0, height: 0)
-        backgroundRect.layer.shadowRadius = 2
+        self.setupCustomCellAppearance(layer: backgroundRect)
+        
+//        backgroundRect.backgroundColor = UIColor.white
+//        backgroundRect.layer.shadowColor = UIColor.black.cgColor
+//        backgroundRect.layer.shadowOpacity = 0.5
+//        backgroundRect.layer.shadowOffset = CGSize(width: 0, height: 0)
+//        backgroundRect.layer.shadowRadius = 2
 
 //        self.layer.shadowColor = color.cgColor;
 //        self.layer.shadowOffset = offset;
