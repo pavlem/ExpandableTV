@@ -11,38 +11,18 @@ import UIKit
 class EngVCCell: UITableViewCell {
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
+    
         backgroundColor = .white
-        
         let viewR = UIView(frame: CGRect(x: self.frame.width - 10,y: 0, width: 4, height: self.frame.height))
-        
-        
-        
-        
-        
         viewR.backgroundColor = .gray
-        
         let viewL = UIView(frame: CGRect(x: 10,y: 0, width: 4, height: self.frame.height))
         viewL.backgroundColor = .red
 
-        
         self.addSubview(viewR)
         self.addSubview(viewL)
-        
-        
-        viewR.addConstaintsToSuperview(rightOffset: 10, topOffset: 0)
-        viewR.addConstaints(height: 60, width: 4)
-        
-    
-
-        
-        
-
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-
 }

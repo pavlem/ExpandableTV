@@ -8,13 +8,13 @@
 
 import UIKit
 
-struct ExpandableNames {
+struct ExpandableSectionData {
     var isExpanded: Bool
-    let names: [String]
-    let headerTitle: String
+    let sectionTitles: [String]
+    let headerTitle: String?
 }
 
-struct Titles {
+struct ExpandableHeaderTitles {
     static let open = "open"
     static let close = "close"
 }
@@ -23,16 +23,26 @@ class ExpandableTVC: UITableViewController {
     
     //MARK: - API
     var sectionHeaderViewHeight = CGFloat(46)
-    
-    var twoDimensionalArray = [
-        ExpandableNames(isExpanded: true, names: ["Row - 01", "Row - 02", "Row - 03", "Row - 04", "Row - 05", "Row - 06"], headerTitle: "Section - 0"),
-        ExpandableNames(isExpanded: true, names: ["Row - 10", "Row - 11", "Row - 12", "Row - 13"], headerTitle: "Section - 1"),
-        ExpandableNames(isExpanded: true, names: ["Row - 20", "Row - 21"], headerTitle: "Section - 2"),
-        ExpandableNames(isExpanded: true, names: ["Row - 30", "Row - 31", "Row - 32", "Row - 33"], headerTitle: "Section - 3"),
-        ExpandableNames(isExpanded: true, names: ["Row - 40", "Row - 41", "Row - 42"], headerTitle: "Section - 4")
+    var sectionsDataSource = [
+        ExpandableSectionData(isExpanded: true, sectionTitles: ["Row - 01", "Row - 02", "Row - 03", "Row - 04"], headerTitle: "Section - 0"),
+        ExpandableSectionData(isExpanded: true, sectionTitles: ["Row - 10", "Row - 11", "Row - 12", "Row - 13"], headerTitle: "Section - 1"),
+        ExpandableSectionData(isExpanded: true, sectionTitles: ["Row - 20", "Row - 21"], headerTitle: "Section - 2"),
+        ExpandableSectionData(isExpanded: true, sectionTitles: ["Row - 30", "Row - 31", "Row - 32", "Row - 33"], headerTitle: "Section - 3"),
+        ExpandableSectionData(isExpanded: true, sectionTitles: ["Row - 40", "Row - 41", "Row - 42"], headerTitle: "Section - 4")
     ]
     
+    func setHeaderTotggleBtnTitle(open: String, close: String) {
+        titleOpen = open
+        titleClose = close
+    }
+
+    var isExpanderArrowShown = true
+
+    
     //MARK: - Properties
+    // Vars
+    private var titleOpen: String?
+    private var titleClose: String?
     //Constants
     let expandableCellId = "expandableCell_ID"
 
@@ -40,43 +50,59 @@ class ExpandableTVC: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setHeaderTotggleBtnTitle(open: ExpandableHeaderTitles.open, close: ExpandableHeaderTitles.close)
+        
         tableView.register(ExpandableCell.self, forCellReuseIdentifier: expandableCellId)
     }
     
+    //MARK: - Helper
+    func setupExpandableArrowIndicator(onView view: UIView) {
+        let imageView = UIImageView(frame: CGRect(x: self.view.frame.width - 30, y: 10, width:13, height: 13))
+        imageView.contentMode = .center
+        imageView.image = self.sectionsDataSource[section].isExpanded ? #imageLiteral(resourceName: "Down") : #imageLiteral(resourceName: "Right")
+        view.addSubview(imageView)
+    }
+    
+    //MARK: - UITableViewDelegate
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = UIView(frame: CGRect(x: 0, y: 0, width: Int(self.view.frame.width), height: Int(sectionHeaderViewHeight)))
         view.backgroundColor = UIColor.orange
+
+        if isExpanderArrowShown {
+            setupExpandableArrowIndicator(onView: view)
+        }
+
+        let headerTitle = UILabel(frame: CGRect(x: 30, y: 15, width: self.view.frame.width, height: 20))
+        headerTitle.text = sectionsDataSource[section].headerTitle
+        view.addSubview(headerTitle)
+        view.tag = 200 + section
         
         let button = UIButton(type: .system)
-        button.setTitle(Titles.close, for: .normal)
+        button.setTitle(sectionsDataSource[section].isExpanded ? titleClose : titleOpen, for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
         button.addTarget(self, action: #selector(handleExpandClose), for: .touchUpInside)
         button.tag = section
         button.frame = view.frame
         view.addSubview(button)
-        
-        let imageView = UIImageView(frame: CGRect(x: self.view.frame.width - 30, y: 10, width:13, height: 13))
-        imageView.contentMode = .center
-        imageView.image = self.twoDimensionalArray[section].isExpanded ? #imageLiteral(resourceName: "Down") : #imageLiteral(resourceName: "Right")
-        view.addSubview(imageView)
-        
-        let headerTitle = UILabel(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 20))
-        headerTitle.text = twoDimensionalArray[section].headerTitle
-        view.addSubview(headerTitle)
-        view.tag = 200 + section
 
         return view
     }
     
     @objc func handleExpandClose(button: UIButton) {
-        print("Trying to expand and close section...")
         
         let section = button.tag
+        let isSectionexpanded = sectionsDataSource[section].isExpanded
+
+        if isSectionexpanded {
+            print("Closing...")
+        } else {
+            print("Expanding...")
+        }
         
         // we'll try to close the section first by deleting the rows
         var indexPaths = [IndexPath]()
-        for row in twoDimensionalArray[section].names.indices {
+        for row in sectionsDataSource[section].sectionTitles.indices {
             print(0, row)
             let indexPath = IndexPath(row: row, section: section)
             indexPaths.append(indexPath)
@@ -85,16 +111,15 @@ class ExpandableTVC: UITableViewController {
         let hView = tableView.viewWithTag(200 + button.tag)
         for imageView in hView!.subviews where (imageView is UIImageView) {
             UIView.animate(withDuration: 0.2) {
-                imageView.transform = imageView.transform.rotated(by: self.twoDimensionalArray[section].isExpanded ? -.pi/2 : .pi/2)
+                imageView.transform = imageView.transform.rotated(by: self.sectionsDataSource[section].isExpanded ? -.pi/2 : .pi/2)
             }
         }
+
+        sectionsDataSource[section].isExpanded = !isSectionexpanded
         
-        let isExpanded = twoDimensionalArray[section].isExpanded
-        twoDimensionalArray[section].isExpanded = !isExpanded
+        button.setTitle(isSectionexpanded ? titleOpen : titleClose, for: .normal)
         
-        button.setTitle(isExpanded ? Titles.open : Titles.close, for: .normal)
-        
-        if isExpanded {
+        if isSectionexpanded {
             tableView.deleteRows(at: indexPaths, with: .fade)
         } else {
             tableView.insertRows(at: indexPaths, with: .fade)
@@ -104,6 +129,7 @@ class ExpandableTVC: UITableViewController {
     }
     
     func toggleHeaderSection(section: Int) {
+        print("toggleHeaderSection_baseExpTVC")
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -111,20 +137,20 @@ class ExpandableTVC: UITableViewController {
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return twoDimensionalArray.count
+        return sectionsDataSource.count
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if !twoDimensionalArray[section].isExpanded {
+        if !sectionsDataSource[section].isExpanded {
             return 0
         }
         
-        return twoDimensionalArray[section].names.count
+        return sectionsDataSource[section].sectionTitles.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: expandableCellId, for: indexPath) as! ExpandableCell
-        let name = twoDimensionalArray[indexPath.section].names[indexPath.row]
+        let name = sectionsDataSource[indexPath.section].sectionTitles[indexPath.row]
         cell.textLabel?.text = name
         return cell
     }

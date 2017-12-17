@@ -14,9 +14,9 @@ class EngTVC: ExpandableTVC {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        twoDimensionalArray = [
-            ExpandableNames(isExpanded: true, names: ["Pera - 01", "Pavle - 02", "Row - 03", "Row - 04", "Row - 05", "Row - 06"], headerTitle: "Section - 0"),
-            ExpandableNames(isExpanded: true, names: ["Row - 10", "Row - 11", "Row - 12", "Row - 13"], headerTitle: "Section - 1"),
+        sectionsDataSource = [
+            ExpandableSectionData(isExpanded: true, sectionTitles: ["Pera - 01", "Pavle - 02", "Row - 03", "Row - 04", "Row - 05", "Row - 06"], headerTitle: "Section - 0"),
+            ExpandableSectionData(isExpanded: true, sectionTitles: ["Row - 10", "Row - 11", "Row - 12", "Row - 13"], headerTitle: "Section - 1"),
         ]
         
         navigationItem.title = "Engagements"
@@ -28,7 +28,7 @@ class EngTVC: ExpandableTVC {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: expandableCellId, for: indexPath) as! EngVCCell
-        let name = twoDimensionalArray[indexPath.section].names[indexPath.row]
+        let name = sectionsDataSource[indexPath.section].sectionTitles[indexPath.row]
         cell.textLabel?.text = name
         return cell
     }

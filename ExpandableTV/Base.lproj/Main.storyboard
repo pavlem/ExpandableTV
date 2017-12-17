@@ -26,10 +26,10 @@
             </objects>
             <point key="canvasLocation" x="-1228" y="115"/>
         </scene>
-        <!--StartVC-->
+        <!--View Controller-->
         <scene sceneID="nlR-Sb-k7p">
             <objects>
-                <viewController id="blB-oK-QzQ" customClass="StartVC" customModule="ExpandableTV" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="blB-oK-QzQ" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="rB3-5s-Rmj">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
