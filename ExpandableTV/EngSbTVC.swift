@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class EngSbTVC: ExpandableTVC {
+class EngSbTVC: BaseExpandableTVC {
     
     let engSBCellId = "engSBCell_ID"
     
@@ -18,6 +18,7 @@ class EngSbTVC: ExpandableTVC {
         
         //Set custom properties
         sectionHeaderViewHeight = CGFloat(60)
+        
         setHeaderTotggleBtnTitle(open: "open", close: "close")
         
         expandableIndicatorFrame = CGRect(x: self.view.frame.width - 30, y: 20, width:13, height: 13)
@@ -34,8 +35,8 @@ class EngSbTVC: ExpandableTVC {
 //        let view = tableView.dequeueReusableCell(withIdentifier: "engSBHeaderCell_ID")!
         let headerView = super.tableView(tableView, viewForHeaderInSection: section)!
         
-//        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: Int(self.view.frame.width), height: 60))
         headerView.backgroundColor = UIColor.white
+        
         
         let backgroundRect = UIView(frame: CGRect(x: 10, y: 10, width: self.view.frame.width - 20, height: 40))
         UIView.setCustomShadow(mainView: headerView, shadowView: backgroundRect)
@@ -82,7 +83,6 @@ class EngSbTVC: ExpandableTVC {
         }
         
         return 60
-
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

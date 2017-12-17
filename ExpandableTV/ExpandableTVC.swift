@@ -34,7 +34,6 @@ class ExpandableTVC: BaseExpandableTVC {
         
 //        tableView.register(ExpandableCell.self, forCellReuseIdentifier: expandableCellId)
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: expandableCellId)
-
     }
     
 //    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -50,5 +49,4 @@ class ExpandableTVC: BaseExpandableTVC {
         cell.textLabel?.text = name
         return cell
     }
-
 }

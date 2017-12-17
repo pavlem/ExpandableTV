@@ -15,7 +15,6 @@ struct ExpandableSectionData {
     let headerTitle: String?
 }
 
-
 class BaseExpandableTVC: UITableViewController {
 
     //MARK: - API
@@ -33,16 +32,14 @@ class BaseExpandableTVC: UITableViewController {
     private var titleOpen: String?
     private var titleClose: String?
     //Constants
-    let baseEexpandableCellId = "expandableCell_ID"
+    let baseEexpandableCellId = "baseExpandableCell_ID"
 
-    
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.register(ExpandableCell.self, forCellReuseIdentifier: baseEexpandableCellId)
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: baseEexpandableCellId)
     }
-    
     
     //MARK: - Actions
     @objc func handleExpandClose(button: UIButton) {
@@ -149,5 +146,4 @@ class BaseExpandableTVC: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
-
 }
