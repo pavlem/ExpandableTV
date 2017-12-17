@@ -20,6 +20,8 @@ class EngSbTVC: ExpandableTVC {
         sectionHeaderViewHeight = CGFloat(60)
         setHeaderTotggleBtnTitle(open: "open", close: "close")
         
+        expandableIndicatorFrame = CGRect(x: self.view.frame.width - 30, y: 20, width:13, height: 13)
+        
         sectionsDataSource = [
             ExpandableSectionData(isExpanded: true, sectionTitles: ["Row - 00", "Row - 01", "Row - 02", "Row - 03", "Row - 04", "Row - 05"], headerTitle: "Section - 0"),
             ExpandableSectionData(isExpanded: true, sectionTitles: ["Row - 10", "Row - 11", "Row - 12", "Row - 13"], headerTitle: "Section - 1"),
