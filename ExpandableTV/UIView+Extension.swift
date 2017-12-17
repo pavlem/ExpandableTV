@@ -10,7 +10,6 @@ import Foundation
 import UIKit
 
 extension UIView {
-
     func setLayerShadow(color: UIColor, offset: CGSize, radius: CGFloat) {
         self.layer.shadowColor = color.cgColor;
         self.layer.shadowOffset = offset;
@@ -18,7 +17,6 @@ extension UIView {
         self.layer.shadowOpacity = 1;
         self.layer.shouldRasterize = true
         self.layer.rasterizationScale = UIScreen.main.scale
-        
     }
 }
 
@@ -46,7 +44,6 @@ extension UITableViewCell {
 }
 
 extension UIView {
-    
     public func addConstaintsToSuperview(rightOffset: CGFloat, topOffset: CGFloat) {
         
         self.translatesAutoresizingMaskIntoConstraints = false

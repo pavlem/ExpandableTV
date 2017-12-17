@@ -19,7 +19,13 @@ struct Titles {
     static let close = "close"
 }
 
+//protocol ExpandableTVCProtocolDelegate: class {
+//    func toggleHeaderSection(section: Int)
+//}
+
 class ExpandableTVC: UITableViewController {
+    
+//    weak var delegate: ExpandableTVCProtocolDelegate?
     
     let cellId = "cell_ID"
     
@@ -96,6 +102,11 @@ class ExpandableTVC: UITableViewController {
         } else {
             tableView.insertRows(at: indexPaths, with: .fade)
         }
+        
+        toggleHeaderSection(section: section)
+    }
+    
+    func toggleHeaderSection(section: Int) {
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

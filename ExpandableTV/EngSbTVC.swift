@@ -16,6 +16,8 @@ class EngSbTVC: ExpandableTVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        
         twoDimensionalArray = [
             ExpandableNames(isExpanded: true, names: ["Row - 00", "Row - 01", "Row - 02", "Row - 03", "Row - 04", "Row - 05"], headerTitle: "Section - 0"),
             ExpandableNames(isExpanded: true, names: ["Row - 10", "Row - 11", "Row - 12", "Row - 13"], headerTitle: "Section - 1"),
@@ -27,33 +29,48 @@ class EngSbTVC: ExpandableTVC {
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
 //        let view = tableView.dequeueReusableCell(withIdentifier: "engSBHeaderCell_ID")!
-        let view = UIView(frame: CGRect(x: 0, y: 0, width: Int(self.view.frame.width), height: 60))
-        view.backgroundColor = UIColor.white
+        
+        
+        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: Int(self.view.frame.width), height: 60))
+        headerView.backgroundColor = UIColor.white
         
         let backgroundRect = UIView(frame: CGRect(x: 10, y: 10, width: self.view.frame.width - 20, height: 40))
         
-        UIView.setCustomShadow(mainView: view, shadowView: backgroundRect)
+        UIView.setCustomShadow(mainView: headerView, shadowView: backgroundRect)
         
-        let button = UIButton(type: .system)
-        button.setTitle(Titles.close, for: .normal)
-        button.setTitleColor(.black, for: .normal)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
-        button.addTarget(self, action: #selector(handleExpandClose), for: .touchUpInside)
-        button.tag = section
-        button.frame = view.frame
-        view.addSubview(button)
+        if self.twoDimensionalArray[section].isExpanded {
+            backgroundRect.frame.size.height = 70
+        }
         
         let imageView = UIImageView(frame: CGRect(x: self.view.frame.width - 30, y: 20, width:13, height: 13))
         imageView.contentMode = .center
         imageView.image = self.twoDimensionalArray[section].isExpanded ? #imageLiteral(resourceName: "Down") : #imageLiteral(resourceName: "Right")
-        view.addSubview(imageView)
+        headerView.addSubview(imageView)
         
-        let headerTitle = UILabel(frame: CGRect(x: 30, y: 15, width: self.view.frame.width, height: 20))
+        if self.twoDimensionalArray[section].isExpanded {
+            let viewBlocker = UIView(frame: CGRect(x: 10, y: headerView.frame.height - 20, width: self.view.frame.width - 20, height: 40))
+//            UIView.setCustomShadow(mainView: headerView, shadowView: viewBlocker)
+            viewBlocker.backgroundColor = .white
+            headerView.addSubview(viewBlocker)
+        }
+        
+        
+        let button = UIButton(type: .system)
+        button.setTitle(self.twoDimensionalArray[section].isExpanded ? Titles.close : Titles.open, for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
+        button.addTarget(self, action: #selector(handleExpandClose), for: .touchUpInside)
+        button.tag = section
+        button.frame = headerView.frame
+        button.backgroundColor = .clear
+        headerView.addSubview(button)
+        
+        let headerTitle = UILabel(frame: CGRect(x: 30, y: 15, width: headerView.frame.width, height: 20))
         headerTitle.text = twoDimensionalArray[section].headerTitle
-        view.addSubview(headerTitle)
-        view.tag = 200 + section
+        headerView.addSubview(headerTitle)
+        headerView.tag = 200 + section
         
-        return view
+        return headerView
     }
 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -118,4 +135,8 @@ class EngSbTVC: ExpandableTVC {
         print(indexPath)
     }
     
+    override func toggleHeaderSection(section: Int) {
+        super.toggleHeaderSection(section: section)
+        tableView.reloadSections(IndexSet(integer: section), with: .automatic)
+    }
 }
