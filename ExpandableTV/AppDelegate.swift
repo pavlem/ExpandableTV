@@ -18,7 +18,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        window = UIWindow()
 //        window?.makeKeyAndVisible()
 ////        let navController = UINavigationController(rootViewController: ExpandableTVC())
-//        let navController = UINavigationController(rootViewController: EngTVC())
 //        window?.rootViewController = navController
         
         return true

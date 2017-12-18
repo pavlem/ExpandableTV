@@ -13,6 +13,8 @@ struct ExpandableHeaderTitles {
     static let close = "close"
 }
 
+var expDataSource = [[String]]()
+
 class ExpandableTVC: BaseExpandableTVC {
     
     //Constants
@@ -30,23 +32,53 @@ class ExpandableTVC: BaseExpandableTVC {
             ExpandableSectionData(isExpanded: true, sectionTitles: ["Row - 40", "Row - 41", "Row - 42"], headerTitle: "Section - 4")
         ]
         
-        setHeaderTotggleBtnTitle(open: ExpandableHeaderTitles.open, close: ExpandableHeaderTitles.close)
+//        sectionsDataSource = [
+//            ExpandableSectionData(isExpanded: true, sectionTitles: ["Row - 01", "Row - 02", "Row - 03", "Row - 04"], headerTitle: nil),
+//            ExpandableSectionData(isExpanded: true, sectionTitles: ["Row - 10", "Row - 11", "Row - 12", "Row - 13"], headerTitle: nil),
+//        ]
+//
         
+        expDataSource = [
+            ["P=Row - 00", "P=Row - 01", "P=Row - 02", "P=Row - 03"],
+            ["P=Row - 10", "P=Row - 11", "P=Row - 12", "P=Row - 13"]
+        ]
+        
+//        for (index, sectionPaja) in sectionsDataSource.enumerated() {
+//            sectionPaja.sectionTitles = expDataSource[index]
+//        }
+        
+        
+        
+        
+        
+        
+        
+        
+        setHeaderTotggleBtnTitle(open: ExpandableHeaderTitles.open, close: ExpandableHeaderTitles.close)
+        isExpanderArrowShown = true
 //        tableView.register(ExpandableCell.self, forCellReuseIdentifier: expandableCellId)
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: expandableCellId)
     }
     
-//    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCell(withIdentifier: baseEexpandableCellId, for: indexPath) as! ExpandableCell
-//        let name = sectionsDataSource[indexPath.section].sectionTitles[indexPath.row]
-//        cell.textLabel?.text = name
-//        return cell
-//    }
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: baseEexpandableCellId, for: indexPath)
         let name = sectionsDataSource[indexPath.section].sectionTitles[indexPath.row]
+//        let name = expDataSource[indexPath.section][indexPath.row]
+//        let name = "dddd"
+
         cell.textLabel?.text = name
         return cell
     }
+    
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return sectionsDataSource.count
+    }
+    
+//    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        if !sectionsDataSource[section].isExpanded {
+//            return 0
+//        }
+    
+//        return expDataSource[section].count
+//    }
 }

@@ -11,7 +11,7 @@ import UIKit
 
 struct ExpandableSectionData {
     var isExpanded: Bool
-    let sectionTitles: [String]
+    var sectionTitles: [String]
     let headerTitle: String?
 }
 
@@ -20,7 +20,7 @@ class BaseExpandableTVC: UITableViewController {
     //MARK: - API
     var sectionHeaderViewHeight = CGFloat(46)
     var sectionsDataSource = [ExpandableSectionData]()
-    var isExpanderArrowShown = true
+    var isExpanderArrowShown = false
     var expandableIndicatorFrame: CGRect?
     func setHeaderTotggleBtnTitle(open: String, close: String) {
         titleOpen = open
@@ -77,6 +77,7 @@ class BaseExpandableTVC: UITableViewController {
         } else {
             tableView.insertRows(at: indexPaths, with: .fade)
         }
+//        tableView.reloadSections([section], with: .none)
         
         toggleHeaderSection(section: section)
     }
@@ -119,6 +120,7 @@ class BaseExpandableTVC: UITableViewController {
         
         return view
     }
+    
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return sectionHeaderViewHeight

@@ -18,8 +18,8 @@ class EngSbTVC: BaseExpandableTVC {
         
         //Set custom properties
         sectionHeaderViewHeight = CGFloat(60)
-        
-        setHeaderTotggleBtnTitle(open: "open", close: "close")
+        isExpanderArrowShown = true
+//        setHeaderTotggleBtnTitle(open: "open", close: "close")
         
         expandableIndicatorFrame = CGRect(x: self.view.frame.width - 30, y: 20, width:13, height: 13)
         
