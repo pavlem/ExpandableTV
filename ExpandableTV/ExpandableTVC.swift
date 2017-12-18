@@ -23,62 +23,39 @@ class ExpandableTVC: BaseExpandableTVC {
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        sectionsDataSource = [
-            ExpandableSectionData(isExpanded: true, sectionTitles: ["Row - 01", "Row - 02", "Row - 03", "Row - 04"], headerTitle: "Section - 0"),
-            ExpandableSectionData(isExpanded: true, sectionTitles: ["Row - 10", "Row - 11", "Row - 12", "Row - 13"], headerTitle: "Section - 1"),
-            ExpandableSectionData(isExpanded: true, sectionTitles: ["Row - 20", "Row - 21"], headerTitle: "Section - 2"),
-            ExpandableSectionData(isExpanded: true, sectionTitles: ["Row - 30", "Row - 31", "Row - 32", "Row - 33"], headerTitle: "Section - 3"),
-            ExpandableSectionData(isExpanded: true, sectionTitles: ["Row - 40", "Row - 41", "Row - 42"], headerTitle: "Section - 4")
-        ]
-        
-//        sectionsDataSource = [
-//            ExpandableSectionData(isExpanded: true, sectionTitles: ["Row - 01", "Row - 02", "Row - 03", "Row - 04"], headerTitle: nil),
-//            ExpandableSectionData(isExpanded: true, sectionTitles: ["Row - 10", "Row - 11", "Row - 12", "Row - 13"], headerTitle: nil),
-//        ]
-//
         
         expDataSource = [
             ["P=Row - 00", "P=Row - 01", "P=Row - 02", "P=Row - 03"],
-            ["P=Row - 10", "P=Row - 11", "P=Row - 12", "P=Row - 13"]
+            ["P=Row - 10", "P=Row - 11", "P=Row - 12", "P=Row - 13", "P=Row - 14"],
+            ["P=Row - 20", "P=Row - 21", "P=Row - 22", "P=Row - 23", "P=Row - 24", "P=Row - 25"],
+            ["P=Row - 30", "P=Row - 31", "P=Row - 32", "P=Row - 33", "P=Row - 34"]
         ]
         
-//        for (index, sectionPaja) in sectionsDataSource.enumerated() {
-//            sectionPaja.sectionTitles = expDataSource[index]
-//        }
+        for expSection in expDataSource {
+            baseSectionsDataSource.append(BaseExpandableSectionData(isExpanded: true, numberOfRowsInSection: expSection.count))
+        }
+
+        setExpandableArrow(frame: nil, tint: UIColor.blue)
         
-        
-        
-        
-        
-        
-        
-        
-        setHeaderTotggleBtnTitle(open: ExpandableHeaderTitles.open, close: ExpandableHeaderTitles.close)
-        isExpanderArrowShown = true
-//        tableView.register(ExpandableCell.self, forCellReuseIdentifier: expandableCellId)
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: expandableCellId)
+        tableView.register(ExpandableCell.self, forCellReuseIdentifier: expandableCellId)
+//        tableView.register(UITableViewCell.self, forCellReuseIdentifier: expandableCellId)
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: baseEexpandableCellId, for: indexPath)
-        let name = sectionsDataSource[indexPath.section].sectionTitles[indexPath.row]
-//        let name = expDataSource[indexPath.section][indexPath.row]
-//        let name = "dddd"
-
+//        let cell = tableView.dequeueReusableCell(withIdentifier: expandableCellId, for: indexPath)
+        let name = expDataSource[indexPath.section][indexPath.row]
         cell.textLabel?.text = name
         return cell
     }
     
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return sectionsDataSource.count
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let hView = super.tableView(tableView, viewForHeaderInSection: section)!
+
+        let headerTitle = UILabel(frame: CGRect(x: 30, y: 15, width: self.view.frame.width, height: 20))
+        headerTitle.text = expDataSource[section][0]
+        hView.addSubview(headerTitle)
+    
+        return hView
     }
-    
-//    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        if !sectionsDataSource[section].isExpanded {
-//            return 0
-//        }
-    
-//        return expDataSource[section].count
-//    }
 }
