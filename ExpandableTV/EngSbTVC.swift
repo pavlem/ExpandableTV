@@ -22,7 +22,7 @@ class EngSbTVC: BaseExpandableTVC {
     let engSBCellId = "engSBCell_ID"
     var sectionsDataSource = [ExpandableSBSectionData]()
 
-    let headerViewHeight = CGFloat(90)
+    let headerViewHeight = CGFloat(65)
     let rowHeight = CGFloat(60)
 
     let headerBackgroundRectHeight = CGFloat(60)
@@ -51,11 +51,12 @@ class EngSbTVC: BaseExpandableTVC {
 
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
 //        let view = tableView.dequeueReusableCell(withIdentifier: "engSBHeaderCell_ID")!
-        let headerView = super.tableView(tableView, viewForHeaderInSection: section)!
+        let headerView = super.tableView(tableView, viewForHeaderInSection: section)! as! BaseExpandableHeaderView
         
         headerView.backgroundColor = UIColor.white
+        headerView.arrowTint = UIColor.black
         
-        let backgroundRect = UIView(frame: CGRect(x: headerBackgroundRectXPadding, y: headerBackgroundRectYPadding, width: self.view.frame.width - 2*headerBackgroundRectXPadding, height: headerBackgroundRectHeight))
+        let backgroundRect = UIView(frame: CGRect(x: headerBackgroundRectXPadding, y: 0, width: self.view.frame.width - 2*headerBackgroundRectXPadding, height: headerBackgroundRectHeight))
         UIView.setCustomShadow(mainView: headerView, shadowView: backgroundRect)
         if baseSectionsDataSource[section].isExpanded {
             backgroundRect.frame.size.height = headerBackgroundRectHeight + 40
@@ -73,6 +74,10 @@ class EngSbTVC: BaseExpandableTVC {
         
         return headerView
     }
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return headerViewHeight
+    }
 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
        
@@ -80,7 +85,7 @@ class EngSbTVC: BaseExpandableTVC {
         
         //Last cell in section - to show the shadow
         if sectionRows.numberOfRowsInSection == indexPath.row + 1 {
-            return rowHeight + 12.5
+            return rowHeight + 15
         }
         
         return rowHeight

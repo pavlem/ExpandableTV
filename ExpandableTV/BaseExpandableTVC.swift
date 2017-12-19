@@ -14,12 +14,12 @@ struct BaseExpandableSectionData {
     var numberOfRowsInSection: Int
 }
 
-class BaseExpandableTVC: UITableViewController {
-
+class BaseExpandableTVC: UITableViewController, BaseExpandableHeaderViewDelegate {
+    
     //MARK: - API
     var baseSectionsDataSource = [BaseExpandableSectionData]()
     var expandableSectionHeaderViewHeight = CGFloat(46)
-
+    
     func setExpandableArrow(frame: CGRect?, tint: UIColor) {
         isExpandableArrowShown = true
         expandableArrowIndicatorFrame = frame
@@ -35,11 +35,14 @@ class BaseExpandableTVC: UITableViewController {
     private var titleClose: String?
     //Constants
     let baseEexpandableCellId = "baseExpandableCell_ID"
-
+    
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        //        let paja = BaseExpandableHeaderView(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
+        //        paja.backgroundColor = .red
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: baseEexpandableCellId)
     }
     
@@ -67,7 +70,7 @@ class BaseExpandableTVC: UITableViewController {
         } else {
             tableView.insertRows(at: indexPaths, with: .fade)
         }
-//        tableView.reloadSections([section], with: .automatic) //This option is also possible but then arrow animation expand/collapse is not shown because of the header reload
+        //        tableView.reloadSections([section], with: .automatic) //This option is also possible but then arrow animation expand/collapse is not shown because of the header reload
         toggleHeaderSection(section: section)
     }
     
@@ -82,21 +85,13 @@ class BaseExpandableTVC: UITableViewController {
     
     //MARK: - UITableViewDelegate
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let hView = UIView(frame: CGRect(x: 0, y: 0, width: Int(self.view.frame.width), height: Int(expandableSectionHeaderViewHeight)))
-        hView.tag = 200 + section
-        hView.backgroundColor = UIColor.orange
         
-        if isExpandableArrowShown {
-            let indicatorFrame = (expandableArrowIndicatorFrame != nil) ? expandableArrowIndicatorFrame! : CGRect(x: self.view.frame.width - 30, y: 10, width:13, height: 13)
-            hView.addSubview(UIImageView.setExpandableImageIndicator(arrowFrame: indicatorFrame, isExpanded: baseSectionsDataSource[section].isExpanded, arrowTint: expandableArrowIndicatorTintColour, imgExpanded: #imageLiteral(resourceName: "Down"), imgCollapsed: #imageLiteral(resourceName: "Right")))
-        }
+        let headerFrame = CGRect(x: 0, y: 0, width: Int(self.view.frame.width), height: Int(expandableSectionHeaderViewHeight))
+        let arrowIndicatorFrame = (expandableArrowIndicatorFrame != nil) ? expandableArrowIndicatorFrame! : CGRect(x: self.view.frame.width - 30, y: 10, width:13, height: 13)
         
-        let button = UIButton(type: .system)
-        button.addTarget(self, action: #selector(handleExpandClose), for: .touchUpInside)
-        button.tag = section
-        button.frame = hView.frame
+        let hView = BaseExpandableHeaderView(frame: headerFrame, section: section, toggleArrow: (frame: arrowIndicatorFrame, expandedImage: #imageLiteral(resourceName: "Down"), collapsedImage: #imageLiteral(resourceName: "Right"), tint: UIColor.green), isSectionExpanded: baseSectionsDataSource[section].isExpanded)
         
-        hView.addSubview(button)
+        hView.delegate = self
         
         return hView
     }
