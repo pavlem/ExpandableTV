@@ -30,7 +30,8 @@ class EngSbTVC: BaseExpandableTVC {
     let headerBackgroundRectXPadding = CGFloat(10)
     let lastRowInSectionShadowFix = CGFloat(15)
     let lastSectionShadowFix = CGFloat(30)
-
+    let firstSectionHeaderFixForAllElements = CGFloat(5)
+    
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,7 +50,24 @@ class EngSbTVC: BaseExpandableTVC {
             baseSectionsDataSource.append(BaseExpandableSectionData(isExpanded: true, numberOfRowsInSection: expSection.numberOfRowsInSection))
         }
     }
+    
+    //MARK: - Helper
+    private func fixHeaderElementsForFirstSection(headerView: UIView) {
+        
+        for v in headerView.subviews {
+            v.frame.origin.y += firstSectionHeaderFixForAllElements
+            headerView.bringSubview(toFront: v)
+        }
+    }
 
+    //MARK: - Actions
+    override func handleExpandClose(button: UIButton) {
+        super.handleExpandClose(button: button)
+        
+        tableView.reloadSections(IndexSet(integer: button.tag), with: .automatic)
+    }
+    
+    //MARK: - TableView
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
 //        let view = tableView.dequeueReusableCell(withIdentifier: "engSBHeaderCell_ID")!
         let headerView = super.tableView(tableView, viewForHeaderInSection: section)! as! BaseExpandableHeaderView
@@ -57,16 +75,7 @@ class EngSbTVC: BaseExpandableTVC {
         headerView.backgroundColor = UIColor.white
         headerView.arrowTint = UIColor.black
         
-        let yPositionForFirstSectionForAllElementsShadowFix = (section == 0) ? CGFloat(5) : CGFloat(0)
-
-        for v in headerView.subviews where v is UIImageView{
-            v.frame.origin.y += yPositionForFirstSectionForAllElementsShadowFix
-            headerView.bringSubview(toFront: v)
-        }
-
-        
-        
-        let backgroundRect = UIView(frame: CGRect(x: headerBackgroundRectXPadding, y: 0 + yPositionForFirstSectionForAllElementsShadowFix, width: self.view.frame.width - 2*headerBackgroundRectXPadding, height: headerBackgroundRectHeight))
+        let backgroundRect = UIView(frame: CGRect(x: headerBackgroundRectXPadding, y: 0, width: self.view.frame.width - 2*headerBackgroundRectXPadding, height: headerBackgroundRectHeight))
         UIView.setCustomShadow(mainView: headerView, shadowView: backgroundRect)
         if baseSectionsDataSource[section].isExpanded {
             backgroundRect.frame.size.height = headerBackgroundRectHeight + 40
@@ -79,29 +88,23 @@ class EngSbTVC: BaseExpandableTVC {
             headerView.addSubview(viewBlocker)
         }
         
-        let headerTitle = UILabel(frame: CGRect(x: 30, y: 15 + yPositionForFirstSectionForAllElementsShadowFix, width: self.view.frame.width, height: 20))
+        let headerTitle = UILabel(frame: CGRect(x: 30, y: 15, width: self.view.frame.width, height: 20))
         headerTitle.text = sectionsDataSource[section].headerTitle
-        headerTitle.backgroundColor = .orange
         headerView.addSubview(headerTitle)
         
+        if section == 0 {
+            fixHeaderElementsForFirstSection(headerView: headerView)
+        }
         return headerView
     }
     
-    
-    
-    
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-
         //Fix for last section non-expanded state
         if (sectionsDataSource.count == section + 1), !baseSectionsDataSource[section].isExpanded {
             return headerViewHeight + lastSectionShadowFix
         }
         
-        if section == 0 {
-            return headerViewHeight + 5
-        }
-    
-        return headerViewHeight
+        return section == 0 ? headerViewHeight + firstSectionHeaderFixForAllElements : headerViewHeight
     }
 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -136,18 +139,19 @@ class EngSbTVC: BaseExpandableTVC {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> EngSbCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: engSBCellId, for: indexPath) as! EngSbCell
         let name = sectionsDataSource[indexPath.section].sectionRowTitles[indexPath.row]
-        cell.titleOfEng?.text = name
+        cell.delegate = self
+        cell.titleEng?.text = name
         return cell
-    }
-
-    override func handleExpandClose(button: UIButton) {
-        super.handleExpandClose(button: button)
-
-        tableView.reloadSections(IndexSet(integer: button.tag), with: .automatic)
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("didSelectRowAt")
         print(indexPath)
+    }
+}
+
+extension EngSbTVC: EngagementTabCellProtocol {
+    func editButtonTapped(indexPath: IndexPath) {
+        print("editButtonTapped from TableView____" + String(describing: indexPath))
     }
 }
