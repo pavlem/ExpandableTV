@@ -110,8 +110,8 @@ class EngSbTVC: BaseExpandableTVC {
         return cell
     }
     
-    override func toggleHeaderSection(section: Int) {
-        super.toggleHeaderSection(section: section)
+    override func rotateArrowInHeaderSection(section: Int) {
+        super.rotateArrowInHeaderSection(section: section)
         tableView.reloadSections(IndexSet(integer: section), with: .automatic)
     }
 

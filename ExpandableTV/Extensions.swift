@@ -39,14 +39,3 @@ extension UITableViewCell {
         contentView.sendSubview(toBack: layer)
     }
 }
-
-extension UIImageView {
-    class func setExpandableImageIndicator(arrowFrame: CGRect, isExpanded: Bool, arrowTint tint: UIColor, imgExpanded: UIImage, imgCollapsed: UIImage) -> UIImageView {
-        let imageView = UIImageView(frame: arrowFrame)
-        imageView.contentMode = .center
-        imageView.image = isExpanded ? imgExpanded : imgCollapsed
-        imageView.image = imageView.image!.withRenderingMode(.alwaysTemplate)
-        imageView.tintColor = tint
-        return imageView
-    }
-}
