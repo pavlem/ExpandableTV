@@ -79,10 +79,9 @@ class EngSbTVC: BaseExpandableTVC {
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
 
-        if sectionsDataSource.count == section + 1 {
-            if !baseSectionsDataSource[section].isExpanded {
-                return headerViewHeight + lastSectionShadowFix
-            }
+        //Fix for last section non-expanded state
+        if (sectionsDataSource.count == section + 1), !baseSectionsDataSource[section].isExpanded {
+            return headerViewHeight + lastSectionShadowFix
         }
     
         return headerViewHeight
@@ -92,9 +91,9 @@ class EngSbTVC: BaseExpandableTVC {
        
         let sectionRows = baseSectionsDataSource[indexPath.section]
         
-        //Last cell in section - to show the shadow
+        //Last section shadow fix
         if sectionRows.numberOfRowsInSection == indexPath.row + 1 {
-            
+            //Last row in last section shadow fix
             if sectionsDataSource.count == indexPath.section + 1 {
                return rowHeight + lastSectionShadowFix
             }
@@ -131,7 +130,7 @@ class EngSbTVC: BaseExpandableTVC {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("didSelectRowAt")
         print(indexPath)
-        //delegate - pressed cell
     }
 }
