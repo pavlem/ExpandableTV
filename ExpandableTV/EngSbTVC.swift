@@ -9,7 +9,6 @@
 import Foundation
 import UIKit
 
-
 struct ExpandableSBSectionData {
     var isExpanded: Bool
     var sectionRowTitles: [String]
@@ -60,6 +59,7 @@ class EngSbTVC: BaseExpandableTVC {
         UIView.setCustomShadow(mainView: headerView, shadowView: backgroundRect)
         if baseSectionsDataSource[section].isExpanded {
             backgroundRect.frame.size.height = headerBackgroundRectHeight + 40
+            backgroundRect.backgroundColor = .white
         }
         
         if baseSectionsDataSource[section].isExpanded {
@@ -109,45 +109,14 @@ class EngSbTVC: BaseExpandableTVC {
         cell.titleOfEng?.text = name
         return cell
     }
-    
-    override func rotateArrowInHeaderSection(section: Int) {
-        super.rotateArrowInHeaderSection(section: section)
-        tableView.reloadSections(IndexSet(integer: section), with: .automatic)
+
+    override func handleExpandClose(button: UIButton) {
+        super.handleExpandClose(button: button)
+
+        tableView.reloadSections(IndexSet(integer: button.tag), with: .automatic)
     }
-
-
-    
-//    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-//        if !baseSectionsDataSource[section].isExpanded {
-//            return nil
-//        }
-//
-//        let sectionFooterView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: sectionFooterHeight))
-//        sectionFooterView.backgroundColor = UIColor.clear
-//
-//
-//        let backView = UIView(frame: CGRect(x: 10, y: -5, width: self.view.frame.width - 20, height: 10))
-//        backView.backgroundColor = UIColor.white
-//        UIView.setCustomShadow(mainView: sectionFooterView, shadowView: backView)
-//
-//        return sectionFooterView
-//    }
-////
-//    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-//
-//
-//        if !baseSectionsDataSource[section].isExpanded {
-//            return 0
-//        }
-//        return sectionFooterHeight
-//    }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print(indexPath)
     }
-    
-//    override func toggleHeaderSection(section: Int) {
-//        super.toggleHeaderSection(section: section)
-//        tableView.reloadSections(IndexSet(integer: section), with: .automatic)
-//    }
 }

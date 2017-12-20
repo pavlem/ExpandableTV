@@ -45,10 +45,16 @@ class BaseExpandableTVC: UITableViewController, BaseExpandableHeaderViewDelegate
     
     //MARK: - Actions
     @objc func handleExpandClose(button: UIButton) {
-        
-        let section = button.tag
+        button.setTitle(baseSectionsDataSource[button.tag].isExpanded ? titleOpen : titleClose, for: .normal)
+        deleteOrInsertRows(forSection: button.tag)
+        if isExpandableArrowShown {
+            rotateArrowInHeaderSection(section: button.tag)
+        }
+    }
+    
+    //MARK: - Helper
+    func deleteOrInsertRows(forSection section: Int) {
         let isSectionexpanded = baseSectionsDataSource[section].isExpanded
-        
         var indexPaths = [IndexPath]()
         
         let rows = Array(0...baseSectionsDataSource[section].numberOfRowsInSection - 1)
@@ -60,17 +66,10 @@ class BaseExpandableTVC: UITableViewController, BaseExpandableHeaderViewDelegate
         
         baseSectionsDataSource[section].isExpanded = !isSectionexpanded
         
-        button.setTitle(isSectionexpanded ? titleOpen : titleClose, for: .normal)
-        
         if isSectionexpanded {
             tableView.deleteRows(at: indexPaths, with: .fade)
         } else {
             tableView.insertRows(at: indexPaths, with: .fade)
-        }
-        
-        //        tableView.reloadSections([section], with: .automatic) //This option is not possible beacuse the arrow animation expand/collapse is not shown due to the header reload
-        if isExpandableArrowShown {
-            rotateArrowInHeaderSection(section: section)
         }
     }
     
@@ -84,17 +83,16 @@ class BaseExpandableTVC: UITableViewController, BaseExpandableHeaderViewDelegate
     }
     
     //MARK: - UITableViewDelegate
-    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {        
-        let headerFrame = CGRect(x: 0, y: 0, width: Int(self.view.frame.width), height: Int(expandableSectionHeaderViewHeight))
-
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        var toggleArrowIndicator: ToggleArrow?
         if isExpandableArrowShown {
             let arrowIndicatorFrame = (expandableArrowIndicatorFrame != nil) ? expandableArrowIndicatorFrame! : CGRect(x: self.view.frame.width - 30, y: 10, width:13, height: 13)
-            let hView = BaseExpandableHeaderView(frame: headerFrame, section: section, toggleArrow: (frame: arrowIndicatorFrame, expandedImage: #imageLiteral(resourceName: "Down"), collapsedImage: #imageLiteral(resourceName: "Right"), tint: UIColor.green), isSectionExpanded: baseSectionsDataSource[section].isExpanded)
-            hView.delegate = self
-            return hView
+            toggleArrowIndicator = ToggleArrow(frame: arrowIndicatorFrame, expandedImage: #imageLiteral(resourceName: "Down"), collapsedImage: #imageLiteral(resourceName: "Right"), tint: expandableArrowIndicatorTintColour)
         }
         
-        let hView = BaseExpandableHeaderView(frame: headerFrame, section: section, toggleArrow: nil, isSectionExpanded: baseSectionsDataSource[section].isExpanded)
+        let headerFrame = CGRect(x: 0, y: 0, width: Int(self.view.frame.width), height: Int(expandableSectionHeaderViewHeight))
+        let hView = BaseExpandableHeaderView(frame: headerFrame, section: section, toggleArrow: toggleArrowIndicator, isSectionExpanded: baseSectionsDataSource[section].isExpanded)
         hView.delegate = self
         return hView
     }

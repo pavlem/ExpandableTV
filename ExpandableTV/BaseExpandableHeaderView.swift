@@ -12,6 +12,13 @@ protocol BaseExpandableHeaderViewDelegate: class {
     func handleExpandClose(button: UIButton)
 }
 
+struct ToggleArrow {
+    let frame: CGRect?
+    let expandedImage: UIImage
+    let collapsedImage: UIImage
+    let tint: UIColor?
+}
+
 class BaseExpandableHeaderView: UIView {
     
     //MARK: - API
@@ -28,7 +35,7 @@ class BaseExpandableHeaderView: UIView {
     weak var delegate: BaseExpandableHeaderViewDelegate?
     
     //MARK: - Inits
-    init(frame: CGRect, section: Int, toggleArrow: (frame: CGRect?, expandedImage: UIImage, collapsedImage: UIImage, tint: UIColor?)?, isSectionExpanded: Bool? = true) {
+    init(frame: CGRect, section: Int, toggleArrow: ToggleArrow?, isSectionExpanded: Bool? = true) {
         super.init(frame: frame)
 
         tag = 200 + section
@@ -52,8 +59,7 @@ class BaseExpandableHeaderView: UIView {
     }
     
     //MARK: - Helper
-    private func addHeaderToggleArrowImage(toggleArrow: (frame: CGRect?, expandedImage: UIImage, collapsedImage: UIImage, tint: UIColor?), isSectionExpanded: Bool) {
-        
+    private func addHeaderToggleArrowImage(toggleArrow: ToggleArrow, isSectionExpanded: Bool) {
         let arrowTint = (toggleArrow.tint != nil) ? toggleArrow.tint : UIColor.blue
         let indicatorFrame = (toggleArrow.frame != nil) ? toggleArrow.frame! : CGRect(x: frame.width - 30, y: 10, width:13, height: 13)
         let imgView = setExpandableArrowImageIndicator(arrowFrame: indicatorFrame, isExpanded: isSectionExpanded, arrowTint: arrowTint!, imgExpanded: toggleArrow.expandedImage, imgCollapsed: toggleArrow.collapsedImage)
@@ -81,7 +87,5 @@ class BaseExpandableHeaderView: UIView {
     @objc func handleExpandClose(button: UIButton) {
         print("handleExpandClose")
         delegate?.handleExpandClose(button: button)
-        
-        
     }
 }

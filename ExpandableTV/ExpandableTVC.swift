@@ -35,7 +35,7 @@ class ExpandableTVC: BaseExpandableTVC {
             baseSectionsDataSource.append(BaseExpandableSectionData(isExpanded: true, numberOfRowsInSection: expSection.count))
         }
 
-        setExpandableArrow(frame: nil, tint: UIColor.blue)
+//        setExpandableArrow(frame: nil, tint: UIColor.blue)
         
         tableView.register(ExpandableCell.self, forCellReuseIdentifier: expandableCellId)
 //        tableView.register(UITableViewCell.self, forCellReuseIdentifier: expandableCellId)
