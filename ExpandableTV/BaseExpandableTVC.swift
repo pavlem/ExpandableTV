@@ -20,7 +20,7 @@ class BaseExpandableTVC: UITableViewController, BaseExpandableHeaderViewDelegate
     var baseSectionsDataSource = [BaseExpandableSectionData]()
     var expandableSectionHeaderViewHeight = CGFloat(46)
     
-    func setExpandableArrow(frame: CGRect?, tint: UIColor) {
+    func setExpandableArrow(frame: CGRect, tint: UIColor) {
         isExpandableArrowShown = true
         expandableArrowIndicatorFrame = frame
         expandableArrowIndicatorTintColour = tint
@@ -47,13 +47,10 @@ class BaseExpandableTVC: UITableViewController, BaseExpandableHeaderViewDelegate
     @objc func handleExpandClose(button: UIButton) {
         button.setTitle(baseSectionsDataSource[button.tag].isExpanded ? titleOpen : titleClose, for: .normal)
         deleteOrInsertRows(forSection: button.tag)
-        if isExpandableArrowShown {
-            rotateArrowInHeaderSection(section: button.tag)
-        }
     }
     
     //MARK: - Helper
-    func deleteOrInsertRows(forSection section: Int) {
+    private func deleteOrInsertRows(forSection section: Int) {
         let isSectionexpanded = baseSectionsDataSource[section].isExpanded
         var indexPaths = [IndexPath]()
         
@@ -72,27 +69,14 @@ class BaseExpandableTVC: UITableViewController, BaseExpandableHeaderViewDelegate
             tableView.insertRows(at: indexPaths, with: .fade)
         }
     }
-    
-    func rotateArrowInHeaderSection(section: Int) {
-        let hView = tableView.viewWithTag(200 + section)
-        for imageView in hView!.subviews where (imageView is UIImageView) {
-            UIView.animate(withDuration: 0.2) {
-                imageView.transform = imageView.transform.rotated(by: self.baseSectionsDataSource[section].isExpanded ? .pi/2 : -.pi/2)
-            }
-        }
-    }
-    
-    //MARK: - UITableViewDelegate
+}
+
+//MARK: - UITableViewDelegate
+extension BaseExpandableTVC {
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
-        var toggleArrowIndicator: ToggleArrow?
-        if isExpandableArrowShown {
-            let arrowIndicatorFrame = (expandableArrowIndicatorFrame != nil) ? expandableArrowIndicatorFrame! : CGRect(x: self.view.frame.width - 30, y: 10, width:13, height: 13)
-            toggleArrowIndicator = ToggleArrow(frame: arrowIndicatorFrame, expandedImage: #imageLiteral(resourceName: "Down"), collapsedImage: #imageLiteral(resourceName: "Right"), tint: expandableArrowIndicatorTintColour)
-        }
-        
         let headerFrame = CGRect(x: 0, y: 0, width: Int(self.view.frame.width), height: Int(expandableSectionHeaderViewHeight))
-        let hView = BaseExpandableHeaderView(frame: headerFrame, section: section, toggleArrow: toggleArrowIndicator, isSectionExpanded: baseSectionsDataSource[section].isExpanded)
+        let hView = BaseExpandableHeaderView(frame: headerFrame, section: section, toggleArrow: isExpandableArrowShown ? ToggleArrow(frame: expandableArrowIndicatorFrame!, expandedImage: #imageLiteral(resourceName: "Down"), collapsedImage: #imageLiteral(resourceName: "Right"), tint: expandableArrowIndicatorTintColour) : nil, isSectionExpanded: baseSectionsDataSource[section].isExpanded)
         hView.delegate = self
         return hView
     }

@@ -35,7 +35,7 @@ class ExpandableTVC: BaseExpandableTVC {
             baseSectionsDataSource.append(BaseExpandableSectionData(isExpanded: true, numberOfRowsInSection: expSection.count))
         }
 
-//        setExpandableArrow(frame: nil, tint: UIColor.blue)
+        setExpandableArrow(frame: CGRect(x: self.view.frame.width - 30, y: 10, width:13, height: 13), tint: UIColor.blue)
         
         tableView.register(ExpandableCell.self, forCellReuseIdentifier: expandableCellId)
 //        tableView.register(UITableViewCell.self, forCellReuseIdentifier: expandableCellId)
@@ -51,7 +51,8 @@ class ExpandableTVC: BaseExpandableTVC {
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let hView = super.tableView(tableView, viewForHeaderInSection: section)!
-
+        hView.backgroundColor = UIColor.lightGray
+        
         let headerTitle = UILabel(frame: CGRect(x: 30, y: 15, width: self.view.frame.width, height: 20))
         headerTitle.text = expDataSource[section][0]
         hView.addSubview(headerTitle)

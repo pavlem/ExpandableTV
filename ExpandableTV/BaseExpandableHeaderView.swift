@@ -34,12 +34,24 @@ class BaseExpandableHeaderView: UIView {
     
     weak var delegate: BaseExpandableHeaderViewDelegate?
     
+    //MARK: - Properties
+    private var isToggleArrowShown: Bool {
+        for view in self.subviews where view is UIImageView {
+            return true
+        }
+        
+        return false
+    }
+    
+    private var isExpanded = false
+    
     //MARK: - Inits
     init(frame: CGRect, section: Int, toggleArrow: ToggleArrow?, isSectionExpanded: Bool? = true) {
         super.init(frame: frame)
 
+        isExpanded = isSectionExpanded!
+        
         tag = 200 + section
-        backgroundColor = UIColor.lightGray
         
         if let toggleArrow = toggleArrow {
             addHeaderToggleArrowImage(toggleArrow: toggleArrow, isSectionExpanded: isSectionExpanded!)
@@ -55,7 +67,7 @@ class BaseExpandableHeaderView: UIView {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        print("awakeFromNib")
+        print("awakeFromNib - only for SB Instantiation")
     }
     
     //MARK: - Helper
@@ -66,15 +78,7 @@ class BaseExpandableHeaderView: UIView {
         addSubview(imgView)
     }
 
-    private func addHeaderToggleButton(tableHeaderSection: Int) {
-        let button = UIButton(type: .system)
-        button.addTarget(self, action: #selector(handleExpandClose), for: .touchUpInside)
-        button.tag = tableHeaderSection
-        button.frame = frame
-        addSubview(button)
-    }
-    
-    func setExpandableArrowImageIndicator(arrowFrame: CGRect, isExpanded: Bool, arrowTint tint: UIColor, imgExpanded: UIImage, imgCollapsed: UIImage) -> UIImageView {
+    private func setExpandableArrowImageIndicator(arrowFrame: CGRect, isExpanded: Bool, arrowTint tint: UIColor, imgExpanded: UIImage, imgCollapsed: UIImage) -> UIImageView {
         let imageView = UIImageView(frame: arrowFrame)
         imageView.contentMode = .center
         imageView.image = isExpanded ? imgExpanded : imgCollapsed
@@ -83,9 +87,30 @@ class BaseExpandableHeaderView: UIView {
         return imageView
     }
     
+    private func addHeaderToggleButton(tableHeaderSection: Int) {
+        let button = UIButton(type: .system)
+        button.addTarget(self, action: #selector(handleExpandClose), for: .touchUpInside)
+        button.tag = tableHeaderSection
+        button.frame = frame
+        addSubview(button)
+    }
+    
+    private func rotateArrowIndicator(isExpanded: Bool) {
+        for imageView in self.subviews where imageView is UIImageView {
+            UIView.animate(withDuration: 0.2) {
+                imageView.transform = imageView.transform.rotated(by: isExpanded ? .pi/2 : -.pi/2)
+            }
+        }
+    }
+    
     //MARK: - Actions
     @objc func handleExpandClose(button: UIButton) {
-        print("handleExpandClose")
+        isExpanded = !isExpanded
+        
+        if isToggleArrowShown {
+            rotateArrowIndicator(isExpanded: self.isExpanded)
+        }
+        
         delegate?.handleExpandClose(button: button)
     }
 }
