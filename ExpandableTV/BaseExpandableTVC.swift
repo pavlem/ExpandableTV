@@ -26,11 +26,12 @@ class BaseExpandableTVC: UITableViewController, BaseExpandableHeaderViewDelegate
         expandableArrowIndicatorTintColour = tint
     }
     
+    var expandableArrowIndicatorFrame: CGRect?
+
     //MARK: - Properties
     // Vars
     private var isExpandableArrowShown = false
-    private var expandableArrowIndicatorFrame: CGRect?
-    private var expandableArrowIndicatorTintColour = UIColor.black
+        private var expandableArrowIndicatorTintColour = UIColor.black
     private var titleOpen: String?
     private var titleClose: String?
     //Constants

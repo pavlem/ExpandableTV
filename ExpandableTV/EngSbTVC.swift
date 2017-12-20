@@ -37,7 +37,7 @@ class EngSbTVC: BaseExpandableTVC {
         
         //Set custom properties
         expandableSectionHeaderViewHeight = headerViewHeight
-        setExpandableArrow(frame: CGRect(x: self.view.frame.width - 30, y: 20, width:13, height: 13), tint: .black)
+        setExpandableArrow(frame: CGRect(x: self.view.frame.width - 30, y: 0, width:13, height: 13), tint: .black)
 
         sectionsDataSource = [
             ExpandableSBSectionData(isExpanded: true, sectionRowTitles: ["Row - 00", "Row - 01", "Row - 02", "Row - 03", "Row - 04", "Row - 05"], headerTitle: "Section - 0", numberOfRowsInSection: ["Row - 00", "Row - 01", "Row - 02", "Row - 03", "Row - 04", "Row - 05"].count),
@@ -57,7 +57,16 @@ class EngSbTVC: BaseExpandableTVC {
         headerView.backgroundColor = UIColor.white
         headerView.arrowTint = UIColor.black
         
-        let backgroundRect = UIView(frame: CGRect(x: headerBackgroundRectXPadding, y: 0, width: self.view.frame.width - 2*headerBackgroundRectXPadding, height: headerBackgroundRectHeight))
+        let yPositionForFirstSectionForAllElementsShadowFix = (section == 0) ? CGFloat(5) : CGFloat(0)
+
+        for v in headerView.subviews where v is UIImageView{
+            v.frame.origin.y += yPositionForFirstSectionForAllElementsShadowFix
+            headerView.bringSubview(toFront: v)
+        }
+
+        
+        
+        let backgroundRect = UIView(frame: CGRect(x: headerBackgroundRectXPadding, y: 0 + yPositionForFirstSectionForAllElementsShadowFix, width: self.view.frame.width - 2*headerBackgroundRectXPadding, height: headerBackgroundRectHeight))
         UIView.setCustomShadow(mainView: headerView, shadowView: backgroundRect)
         if baseSectionsDataSource[section].isExpanded {
             backgroundRect.frame.size.height = headerBackgroundRectHeight + 40
@@ -70,18 +79,26 @@ class EngSbTVC: BaseExpandableTVC {
             headerView.addSubview(viewBlocker)
         }
         
-        let headerTitle = UILabel(frame: CGRect(x: 30, y: 15, width: self.view.frame.width, height: 20))
+        let headerTitle = UILabel(frame: CGRect(x: 30, y: 15 + yPositionForFirstSectionForAllElementsShadowFix, width: self.view.frame.width, height: 20))
         headerTitle.text = sectionsDataSource[section].headerTitle
+        headerTitle.backgroundColor = .orange
         headerView.addSubview(headerTitle)
         
         return headerView
     }
+    
+    
+    
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
 
         //Fix for last section non-expanded state
         if (sectionsDataSource.count == section + 1), !baseSectionsDataSource[section].isExpanded {
             return headerViewHeight + lastSectionShadowFix
+        }
+        
+        if section == 0 {
+            return headerViewHeight + 5
         }
     
         return headerViewHeight

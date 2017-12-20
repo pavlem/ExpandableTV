@@ -73,8 +73,10 @@ class BaseExpandableHeaderView: UIView {
     //MARK: - Helper
     private func addHeaderToggleArrowImage(toggleArrow: ToggleArrow, isSectionExpanded: Bool) {
         let arrowTint = (toggleArrow.tint != nil) ? toggleArrow.tint : UIColor.blue
-        let indicatorFrame = (toggleArrow.frame != nil) ? toggleArrow.frame! : CGRect(x: frame.width - 30, y: 10, width:13, height: 13)
+        let indicatorFrame = (toggleArrow.frame != nil) ? toggleArrow.frame! : CGRect(x: frame.width - 30, y: 0, width:13, height: 13)
+        
         let imgView = setExpandableArrowImageIndicator(arrowFrame: indicatorFrame, isExpanded: isSectionExpanded, arrowTint: arrowTint!, imgExpanded: toggleArrow.expandedImage, imgCollapsed: toggleArrow.collapsedImage)
+//        imgView.center.y = self.center.y
         addSubview(imgView)
     }
 
