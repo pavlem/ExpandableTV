@@ -18,18 +18,20 @@ struct ExpandableSBSectionData {
 
 class EngSbTVC: BaseExpandableTVC {
     
-    let engSBCellId = "engSBCell_ID"
+    //MARK: - Properties
+    //Var
     var sectionsDataSource = [ExpandableSBSectionData]()
-
+    //Constants
+    let engSBCellId = "engSBCell_ID"
     let headerViewHeight = CGFloat(65)
     let rowHeight = CGFloat(60)
-
     let headerBackgroundRectHeight = CGFloat(60)
     let headerBackgroundRectYPadding = CGFloat(10)
     let headerBackgroundRectXPadding = CGFloat(10)
-//    let sectionFooterHeight = CGFloat(20)
+    let lastRowInSectionShadowFix = CGFloat(15)
+    let lastSectionShadowFix = CGFloat(30)
 
-
+    //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -76,6 +78,13 @@ class EngSbTVC: BaseExpandableTVC {
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+
+        if sectionsDataSource.count == section + 1 {
+            if !baseSectionsDataSource[section].isExpanded {
+                return headerViewHeight + lastSectionShadowFix
+            }
+        }
+    
         return headerViewHeight
     }
 
@@ -85,7 +94,12 @@ class EngSbTVC: BaseExpandableTVC {
         
         //Last cell in section - to show the shadow
         if sectionRows.numberOfRowsInSection == indexPath.row + 1 {
-            return rowHeight + 15
+            
+            if sectionsDataSource.count == indexPath.section + 1 {
+               return rowHeight + lastSectionShadowFix
+            }
+            
+            return rowHeight + lastRowInSectionShadowFix
         }
         
         return rowHeight
@@ -118,5 +132,6 @@ class EngSbTVC: BaseExpandableTVC {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print(indexPath)
+        //delegate - pressed cell
     }
 }
