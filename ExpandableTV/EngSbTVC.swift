@@ -24,13 +24,14 @@ class EngSbTVC: BaseExpandableTVC {
     //Constants
     let engSBCellId = "engSBCell_ID"
     let headerViewHeight = CGFloat(65)
-    let rowHeight = CGFloat(60)
+    let heightForRowAtIndexPath = CGFloat(65)
     let headerBackgroundRectHeight = CGFloat(60)
     let headerBackgroundRectYPadding = CGFloat(10)
     let headerBackgroundRectXPadding = CGFloat(10)
     let lastRowInSectionShadowFix = CGFloat(15)
     let lastSectionShadowFix = CGFloat(30)
     let firstSectionHeaderFixForAllElements = CGFloat(5)
+    let tintColor = UIColor.red
     
     //MARK: - Lifecycle
     override func viewDidLoad() {
@@ -49,6 +50,8 @@ class EngSbTVC: BaseExpandableTVC {
         for expSection in sectionsDataSource {
             baseSectionsDataSource.append(BaseExpandableSectionData(isExpanded: true, numberOfRowsInSection: expSection.numberOfRowsInSection))
         }
+        
+        tableView.tintColor = tintColor
     }
     
     //MARK: - Helper
@@ -73,7 +76,7 @@ class EngSbTVC: BaseExpandableTVC {
         let headerView = super.tableView(tableView, viewForHeaderInSection: section)! as! BaseExpandableHeaderView
         
         headerView.backgroundColor = UIColor.white
-        headerView.arrowTint = UIColor.black
+        headerView.arrowTint = tintColor
         
         let backgroundRect = UIView(frame: CGRect(x: headerBackgroundRectXPadding, y: 0, width: self.view.frame.width - 2*headerBackgroundRectXPadding, height: headerBackgroundRectHeight))
         UIView.setCustomShadow(mainView: headerView, shadowView: backgroundRect)
@@ -115,13 +118,13 @@ class EngSbTVC: BaseExpandableTVC {
         if sectionRows.numberOfRowsInSection == indexPath.row + 1 {
             //Last row in last section shadow fix
             if sectionsDataSource.count == indexPath.section + 1 {
-               return rowHeight + lastSectionShadowFix
+               return heightForRowAtIndexPath + lastSectionShadowFix
             }
             
-            return rowHeight + lastRowInSectionShadowFix
+            return heightForRowAtIndexPath + lastRowInSectionShadowFix
         }
         
-        return rowHeight
+        return heightForRowAtIndexPath
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -141,6 +144,10 @@ class EngSbTVC: BaseExpandableTVC {
         let name = sectionsDataSource[indexPath.section].sectionRowTitles[indexPath.row]
         cell.delegate = self
         cell.titleEng?.text = name
+        
+        cell.imageEng.kf.indicatorType = .activity
+        cell.imageEng.kf.setImage(with: URL(string: "https://pbs.twimg.com/profile_images/512332086137479168/xSdFhHV9.jpeg"))
+        
         return cell
     }
     

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 struct EngagementExpandableData {
     var title: String
@@ -34,6 +35,9 @@ class EngSbCell: UITableViewCell {
     weak var delegate: EngagementTabCellProtocol?
     
     //MARK: - Properties
+    private var cellTint: UIColor? {
+        return tableView?.tintColor
+    }
     //Outlets
     @IBOutlet weak var imageEng: UIImageView!
     @IBOutlet weak var titleEng: UILabel!
@@ -42,13 +46,13 @@ class EngSbCell: UITableViewCell {
     @IBOutlet weak var editBtn: UIButton!
     @IBOutlet weak var backgroundRect: UIView!
     
+    //MARK: - Actions
     @IBAction func editBtnAction(_ sender: UIButton) {
-        
         if let indexPath = self.tableView?.indexPath(for: self) {
             delegate?.editButtonTapped(indexPath: indexPath)
         }
-        
     }
+    
     //MARK: - Lifecycle
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -62,6 +66,11 @@ class EngSbCell: UITableViewCell {
     private func setUI() {
         imageEng.layer.cornerRadius = imageEng.frame.size.width / 2
         
+        let image = UIImage(named: "editEngagement")?.withRenderingMode(.alwaysTemplate)
+        editBtn.setImage(image, for: .normal)
+
+        editBtn.tintColor = cellTint
+        
     }
     
     private func updateUI() {
@@ -72,8 +81,10 @@ class EngSbCell: UITableViewCell {
         editBtn.isHidden = engagementExpandableData!.isEditable ? true : false
         //Image KF download
         //Example
-//        backgroundImageView.kf.indicatorType = .activity
-//        backgroundImageView.kf.setImage(with: URL(string: channel.iconUrl))
+//        https://pbs.twimg.com/profile_images/512332086137479168/xSdFhHV9.jpeg
+        
+//        imageEng.kf.indicatorType = .activity
+//        imageEng.kf.setImage(with: URL(string: "https://pbs.twimg.com/profile_images/512332086137479168/xSdFhHV9.jpeg"))
     }
 }
 

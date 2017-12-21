@@ -77,7 +77,7 @@ extension BaseExpandableTVC {
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         let headerFrame = CGRect(x: 0, y: 0, width: Int(self.view.frame.width), height: Int(expandableSectionHeaderViewHeight))
-        let hView = BaseExpandableHeaderView(frame: headerFrame, section: section, toggleArrow: isExpandableArrowShown ? ToggleArrow(frame: expandableArrowIndicatorFrame!, expandedImage: #imageLiteral(resourceName: "Down"), collapsedImage: #imageLiteral(resourceName: "Right"), tint: expandableArrowIndicatorTintColour) : nil, isSectionExpanded: baseSectionsDataSource[section].isExpanded)
+        let hView = BaseExpandableHeaderView(frame: headerFrame, section: section, toggleArrow: isExpandableArrowShown ? ToggleArrow(frame: expandableArrowIndicatorFrame!, expandedImage: #imageLiteral(resourceName: "arrowDown"), collapsedImage: #imageLiteral(resourceName: "arrowRight"), tint: expandableArrowIndicatorTintColour) : nil, isSectionExpanded: baseSectionsDataSource[section].isExpanded)
         hView.delegate = self
         return hView
     }
