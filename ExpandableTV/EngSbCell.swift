@@ -104,8 +104,8 @@ extension EngSbCell {
         
         let expandableEngagementSectionData = [
             ExpandableEngagementSectionData(isExpanded: true, expandableData: section1, expandableSectionTitle: "Section - 0", numberOfRowsInSection: section1.count),
-            ExpandableEngagementSectionData(isExpanded: true, expandableData: section2, expandableSectionTitle: "Section - 1", numberOfRowsInSection: section2.count),
-            ExpandableEngagementSectionData(isExpanded: true, expandableData: section3, expandableSectionTitle: "Section - 2", numberOfRowsInSection: section3.count)
+            ExpandableEngagementSectionData(isExpanded: true, expandableData: section1, expandableSectionTitle: "Section - 1", numberOfRowsInSection: section2.count),
+            ExpandableEngagementSectionData(isExpanded: true, expandableData: section1, expandableSectionTitle: "Section - 2", numberOfRowsInSection: section3.count)
         ]
         
         return expandableEngagementSectionData

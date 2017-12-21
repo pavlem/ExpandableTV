@@ -76,7 +76,8 @@ class BaseExpandableHeaderView: UIView {
         let indicatorFrame = (toggleArrow.frame != nil) ? toggleArrow.frame! : CGRect(x: frame.width - 30, y: 0, width:13, height: 13)
         
         let imgView = setExpandableArrowImageIndicator(arrowFrame: indicatorFrame, isExpanded: isSectionExpanded, arrowTint: arrowTint!, imgExpanded: toggleArrow.expandedImage, imgCollapsed: toggleArrow.collapsedImage)
-//        imgView.center.y = self.center.y
+        imgView.contentMode = .scaleAspectFit
+        imgView.clipsToBounds = true
         addSubview(imgView)
     }
 

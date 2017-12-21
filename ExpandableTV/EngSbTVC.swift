@@ -47,7 +47,7 @@ class EngSbTVC: BaseExpandableTVC {
         
         //Set custom properties
         expandableSectionHeaderViewHeight = headerViewHeight
-        setExpandableArrow(frame: CGRect(x: self.view.frame.width - 30, y: 0, width:13, height: 13), tint: .black)
+        setExpandableArrow(frame: CGRect(x: self.view.frame.width - 40, y: 25, width:10, height: 10), tint: .black)
         sectionsDataSource = EngSbCell.getMocData()
 
         for expSection in sectionsDataSource {
