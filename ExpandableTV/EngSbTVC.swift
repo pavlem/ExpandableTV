@@ -9,10 +9,18 @@
 import Foundation
 import UIKit
 
-struct ExpandableSBSectionData {
+struct ExpandableEngagementData {
+    var title: String
+    var description: String
+    var status: String
+    var imageUrl: String
+    var isEditable: Bool
+}
+
+struct ExpandableEngagementSectionData {
     var isExpanded: Bool
-    var sectionRowTitles: [String]
-    let headerTitle: String?
+    var expandableData: [ExpandableEngagementData]
+    let expandableSectionTitle: String?
     var numberOfRowsInSection: Int
 }
 
@@ -20,7 +28,7 @@ class EngSbTVC: BaseExpandableTVC {
     
     //MARK: - Properties
     //Var
-    var sectionsDataSource = [ExpandableSBSectionData]()
+    var sectionsDataSource = [ExpandableEngagementSectionData]()
     //Constants
     let engSBCellId = "engSBCell_ID"
     let headerViewHeight = CGFloat(65)
@@ -40,12 +48,7 @@ class EngSbTVC: BaseExpandableTVC {
         //Set custom properties
         expandableSectionHeaderViewHeight = headerViewHeight
         setExpandableArrow(frame: CGRect(x: self.view.frame.width - 30, y: 0, width:13, height: 13), tint: .black)
-
-        sectionsDataSource = [
-            ExpandableSBSectionData(isExpanded: true, sectionRowTitles: ["Row - 00", "Row - 01", "Row - 02", "Row - 03", "Row - 04", "Row - 05"], headerTitle: "Section - 0", numberOfRowsInSection: ["Row - 00", "Row - 01", "Row - 02", "Row - 03", "Row - 04", "Row - 05"].count),
-            ExpandableSBSectionData(isExpanded: true, sectionRowTitles: ["Row - 10", "Row - 11", "Row - 12", "Row - 13"], headerTitle: "Section - 1", numberOfRowsInSection: ["Row - 10", "Row - 11", "Row - 12", "Row - 13"].count),
-            ExpandableSBSectionData(isExpanded: true, sectionRowTitles: ["Row - 20", "Row - 21", "Row - 22"], headerTitle: "Section - 2", numberOfRowsInSection: ["Row - 20", "Row - 21", "Row - 22"].count)
-        ]
+        sectionsDataSource = EngSbCell.getMocData()
 
         for expSection in sectionsDataSource {
             baseSectionsDataSource.append(BaseExpandableSectionData(isExpanded: true, numberOfRowsInSection: expSection.numberOfRowsInSection))
@@ -92,7 +95,7 @@ class EngSbTVC: BaseExpandableTVC {
         }
         
         let headerTitle = UILabel(frame: CGRect(x: 30, y: 15, width: self.view.frame.width, height: 20))
-        headerTitle.text = sectionsDataSource[section].headerTitle
+        headerTitle.text = sectionsDataSource[section].expandableSectionTitle
         headerView.addSubview(headerTitle)
         
         if section == 0 {
@@ -141,12 +144,17 @@ class EngSbTVC: BaseExpandableTVC {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> EngSbCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: engSBCellId, for: indexPath) as! EngSbCell
-        let name = sectionsDataSource[indexPath.section].sectionRowTitles[indexPath.row]
-        cell.delegate = self
-        cell.titleEng?.text = name
         
-        cell.imageEng.kf.indicatorType = .activity
-        cell.imageEng.kf.setImage(with: URL(string: "https://pbs.twimg.com/profile_images/512332086137479168/xSdFhHV9.jpeg"))
+        cell.delegate = self
+        
+        let expandableEngagementSectionData = sectionsDataSource[indexPath.section]
+        let expandableEngagementData = expandableEngagementSectionData.expandableData[indexPath.row]
+        
+        cell.expandableEngagementData = expandableEngagementData
+        
+        
+        
+       
         
         return cell
     }
