@@ -144,18 +144,9 @@ class EngSbTVC: BaseExpandableTVC {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> EngSbCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: engSBCellId, for: indexPath) as! EngSbCell
-        
         cell.delegate = self
-        
         let expandableEngagementSectionData = sectionsDataSource[indexPath.section]
-        let expandableEngagementData = expandableEngagementSectionData.expandableData[indexPath.row]
-        
-        cell.expandableEngagementData = expandableEngagementData
-        
-        
-        
-       
-        
+        cell.expandableEngagementData = expandableEngagementSectionData.expandableData[indexPath.row]
         return cell
     }
     
