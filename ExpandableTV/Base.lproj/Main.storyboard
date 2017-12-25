@@ -76,7 +76,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rVm-Fd-PGe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="390" y="-248"/>
+            <point key="canvasLocation" x="402" y="-531"/>
         </scene>
         <!--Eng SbTVC-->
         <scene sceneID="M5l-Oc-cry">
@@ -181,6 +181,12 @@
                     </tableView>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UhL-Zd-pzF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <view contentMode="scaleToFill" id="ys1-Z2-qDU">
+                    <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <viewLayoutGuide key="safeArea" id="Vcu-MZ-n36"/>
+                </view>
             </objects>
             <point key="canvasLocation" x="389.60000000000002" y="451.12443778110946"/>
         </scene>
