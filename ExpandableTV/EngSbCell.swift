@@ -87,25 +87,25 @@ extension EngSbCell {
             ]
         
         let section2 = [
-            ExpandableEngagementData(title: "Row - 10", description: "Row - 10 - description", status: "All", imageUrl: "https://octopus-development.s3.eu-west-1.amazonaws.com/p/6992c532-a9f2-4478-988a-9e1002e44caa/2dff7124-89eb-4e22-8284-156bb356d4fb/oki-logo.png", isEditable: true),
-            ExpandableEngagementData(title: "Row - 11", description: "Row - 11 - description", status: "All", imageUrl: "https://octopus-development.s3.eu-west-1.amazonaws.com/p/6992c532-a9f2-4478-988a-9e1002e44caa/a43d0d3c-6fbe-44ba-be44-06fdfbdd47fe/cocacola_logo_28559.jpg", isEditable: true),
-            ExpandableEngagementData(title: "Row - 12", description: "Row - 12 - description", status: "Finished", imageUrl: "https://octopus-development.s3.eu-west-1.amazonaws.com/p/6992c532-a9f2-4478-988a-9e1002e44caa/2ae754f4-6371-448f-9ccd-dfad375cd8f8/Coca-Cola-logo-D5C4C21E06-seeklogo.com.png", isEditable: true),
-            ExpandableEngagementData(title: "Row - 13", description: "Row - 13 - description", status: "Finished", imageUrl: "https://octopus-development.s3.eu-west-1.amazonaws.com/p/6992c532-a9f2-4478-988a-9e1002e44caa/3b212ac8-d791-4553-9aea-36743debe412/0403160628_burito%20madre1.png", isEditable: true),
-            ExpandableEngagementData(title: "Row - 14", description: "Row - 14 - description", status: "Finished", imageUrl: "https://octopus-development.s3.eu-west-1.amazonaws.com/p/6992c532-a9f2-4478-988a-9e1002e44caa/3b212ac8-d791-4553-9aea-36743debe412/0403160628_burito%20madre1.png", isEditable: true)
+            ExpandableEngagementData(title: "Row - 10", description: "Row - 10 - description", status: "All", imageUrl: "http://microblogging.wingnity.com/JSONParsingTutorial/jolie.jpg", isEditable: true),
+            ExpandableEngagementData(title: "Row - 11", description: "Row - 11 - description", status: "All", imageUrl: "http://microblogging.wingnity.com/JSONParsingTutorial/tom.jpg", isEditable: true),
+            ExpandableEngagementData(title: "Row - 12", description: "Row - 12 - description", status: "Finished", imageUrl: "http://microblogging.wingnity.com/JSONParsingTutorial/tom.jpg", isEditable: true),
+            ExpandableEngagementData(title: "Row - 13", description: "Row - 13 - description", status: "Finished", imageUrl: "http://microblogging.wingnity.com/JSONParsingTutorial/tom.jpg", isEditable: true),
+            ExpandableEngagementData(title: "Row - 14", description: "Row - 14 - description", status: "Finished", imageUrl: "http://microblogging.wingnity.com/JSONParsingTutorial/tom.jpg", isEditable: true)
             ]
         
         let section3 = [
-            ExpandableEngagementData(title: "Row - 30", description: "Row - 30 - description", status: "All", imageUrl: "https://octopus-development.s3.eu-west-1.amazonaws.com/p/6992c532-a9f2-4478-988a-9e1002e44caa/2dff7124-89eb-4e22-8284-156bb356d4fb/oki-logo.png", isEditable: true),
-            ExpandableEngagementData(title: "Row - 31", description: "Row - 31 - description", status: "All", imageUrl: "https://octopus-development.s3.eu-west-1.amazonaws.com/p/6992c532-a9f2-4478-988a-9e1002e44caa/a43d0d3c-6fbe-44ba-be44-06fdfbdd47fe/cocacola_logo_28559.jpg", isEditable: true),
-            ExpandableEngagementData(title: "Row - 32", description: "Row - 32 - description", status: "Finished", imageUrl: "https://octopus-development.s3.eu-west-1.amazonaws.com/p/6992c532-a9f2-4478-988a-9e1002e44caa/2ae754f4-6371-448f-9ccd-dfad375cd8f8/Coca-Cola-logo-D5C4C21E06-seeklogo.com.png", isEditable: true),
-            ExpandableEngagementData(title: "Row - 33", description: "Row - 33 - description", status: "Finished", imageUrl: "https://octopus-development.s3.eu-west-1.amazonaws.com/p/6992c532-a9f2-4478-988a-9e1002e44caa/3b212ac8-d791-4553-9aea-36743debe412/0403160628_burito%20madre1.png", isEditable: true)
+            ExpandableEngagementData(title: "Row - 30", description: "Row - 30 - description", status: "All", imageUrl: "http://microblogging.wingnity.com/JSONParsingTutorial/tom.jpg", isEditable: true),
+            ExpandableEngagementData(title: "Row - 31", description: "Row - 31 - description", status: "All", imageUrl: "http://microblogging.wingnity.com/JSONParsingTutorial/tom.jpg", isEditable: true),
+            ExpandableEngagementData(title: "Row - 32", description: "Row - 32 - description", status: "Finished", imageUrl: "http://microblogging.wingnity.com/JSONParsingTutorial/tom.jpg", isEditable: true),
+            ExpandableEngagementData(title: "Row - 33", description: "Row - 33 - description", status: "Finished", imageUrl: "http://microblogging.wingnity.com/JSONParsingTutorial/tom.jpg", isEditable: true)
             ]
 
         
         let expandableEngagementSectionData = [
-            ExpandableEngagementSectionData(isExpanded: true, expandableData: section1, expandableSectionTitle: "Section - 0", numberOfRowsInSection: section1.count),
-            ExpandableEngagementSectionData(isExpanded: true, expandableData: section1, expandableSectionTitle: "Section - 1", numberOfRowsInSection: section2.count),
-            ExpandableEngagementSectionData(isExpanded: true, expandableData: section1, expandableSectionTitle: "Section - 2", numberOfRowsInSection: section3.count)
+            ExpandableEngagementSectionData(isExpanded: true, expandableData: section1, expandableSectionTitle: "Section - 0", numberOfRowsInSection: section1.count, engagementType: "promo", engagementNumber: section1.count),
+            ExpandableEngagementSectionData(isExpanded: true, expandableData: section2, expandableSectionTitle: "Section - 1", numberOfRowsInSection: section2.count, engagementType: "message", engagementNumber: section2.count),
+            ExpandableEngagementSectionData(isExpanded: true, expandableData: section3, expandableSectionTitle: "Section - 2", numberOfRowsInSection: section3.count, engagementType: "coupon", engagementNumber: section3.count)
         ]
         
         return expandableEngagementSectionData

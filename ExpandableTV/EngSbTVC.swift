@@ -22,6 +22,8 @@ struct ExpandableEngagementSectionData {
     var expandableData: [ExpandableEngagementData]
     let expandableSectionTitle: String?
     var numberOfRowsInSection: Int
+    var engagementType: String
+    var engagementNumber: Int
 }
 
 class EngSbTVC: BaseExpandableTVC {
@@ -51,7 +53,7 @@ class EngSbTVC: BaseExpandableTVC {
         sectionsDataSource = EngSbCell.getMocData()
 
         for expSection in sectionsDataSource {
-            baseSectionsDataSource.append(BaseExpandableSectionData(isExpanded: true, numberOfRowsInSection: expSection.numberOfRowsInSection))
+            baseSectionsDataSource.append(BaseExpandableSectionData(isExpanded: expSection.isExpanded, numberOfRowsInSection: expSection.numberOfRowsInSection))
         }
         
         tableView.tintColor = tintColor
@@ -94,7 +96,7 @@ class EngSbTVC: BaseExpandableTVC {
             headerView.addSubview(viewBlocker)
         }
         
-        let headerTitle = UILabel(frame: CGRect(x: 30, y: 15, width: self.view.frame.width, height: 20))
+        let headerTitle = UILabel(frame: CGRect(x: 30, y: 30, width: self.view.frame.width, height: 20))
         headerTitle.text = sectionsDataSource[section].expandableSectionTitle
         headerView.addSubview(headerTitle)
         

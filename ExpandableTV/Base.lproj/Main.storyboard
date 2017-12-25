@@ -165,14 +165,6 @@
                                     <outlet property="titleEng" destination="8Uo-tn-JCA" id="YR6-r4-GWa"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="engSBHeaderCell_ID" rowHeight="60" id="NmR-wi-CGz" customClass="EngSbCell" customModule="ExpandableTV" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="93" width="375" height="60"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="NmR-wi-CGz" id="R0E-0Q-OFn">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
                         </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="VrP-Zy-ziL" id="B2w-sv-nTc"/>
