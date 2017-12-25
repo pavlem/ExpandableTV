@@ -20,7 +20,6 @@ struct ExpandableEngagementData {
 struct ExpandableEngagementSectionData {
     var isExpanded: Bool
     var expandableData: [ExpandableEngagementData]
-    let expandableSectionTitle: String?
     var numberOfRowsInSection: Int
     var engagementType: String
     var engagementNumber: Int
@@ -41,7 +40,8 @@ class EngSbTVC: BaseExpandableTVC {
     let lastRowInSectionShadowFix = CGFloat(15)
     let lastSectionShadowFix = CGFloat(30)
     let firstSectionHeaderFixForAllElements = CGFloat(5)
-    let tintColor = UIColor.red
+    let tintColor = UIColor(red:0.25, green:0.3, blue:0.72, alpha:1.0)
+
     
     //MARK: - Lifecycle
     override func viewDidLoad() {
@@ -96,12 +96,26 @@ class EngSbTVC: BaseExpandableTVC {
             headerView.addSubview(viewBlocker)
         }
         
-        let headerTitle = UILabel(frame: CGRect(x: 30, y: 15, width: self.view.frame.width, height: 20))
+        let backgroundRectCenterY = headerView.center.y - 11
+
+        let headerTitle = UILabel()
         headerTitle.text = sectionsDataSource[section].engagementType
+//        headerTitle.backgroundColor = .red
+        headerTitle.textColor = UIColor(red:0.13, green:0.15, blue:0.19, alpha:1)
+        headerTitle.textAlignment = .left
+        headerTitle.font = UIFont.boldSystemFont(ofSize: 15)
+        headerTitle.frame = CGRect(x:30, y:backgroundRectCenterY,width:headerTitle.intrinsicContentSize.width,height:headerTitle.intrinsicContentSize.height)
         headerView.addSubview(headerTitle)
         
-        let engNumber = UILabel(frame: CGRect(x: 30, y: 30, width: self.view.frame.width, height: 20))
+        let engNumber = UILabel()
         engNumber.text = String(sectionsDataSource[section].engagementNumber)
+//        engNumber.backgroundColor = .orange
+        engNumber.textColor = UIColor(red:0.75, green:0.76, blue:0.77, alpha:1)
+        engNumber.textAlignment = .left
+        engNumber.font = UIFont.boldSystemFont(ofSize: 15)
+        let engNumberFr = headerTitle.frame.origin.x + headerTitle.frame.size.width + 10
+        engNumber.frame = CGRect(x:engNumberFr,y:backgroundRectCenterY,width:engNumber.intrinsicContentSize.width,height:engNumber.intrinsicContentSize.height)
+        
         headerView.addSubview(engNumber)
         
         if section == 0 {

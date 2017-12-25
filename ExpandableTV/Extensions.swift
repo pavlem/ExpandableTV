@@ -21,7 +21,7 @@ extension UIView {
     
     class func setCustomShadow(mainView: UIView, shadowView: UIView) {
         shadowView.backgroundColor = UIColor.white
-        shadowView.setLayerShadow(color: UIColor(red:0, green:0, blue:0, alpha:0.5), offset: CGSize(width: 0, height: 2), radius: 6)
+        shadowView.setLayerShadow(color: UIColor(red:0, green:0, blue:0, alpha:0.1), offset: CGSize(width: 0, height: 2), radius: 6)
         shadowView.layer.cornerRadius = 2
         mainView.layer.masksToBounds = true
         mainView.addSubview(shadowView)
@@ -32,7 +32,7 @@ extension UIView {
 extension UITableViewCell {
     func setupCustomCellAppearance(layer: UIView) {
         layer.backgroundColor = UIColor.white
-        layer.setLayerShadow(color: UIColor(red:0, green:0, blue:0, alpha:0.5), offset: CGSize(width: 0, height: 2), radius: 6)
+        layer.setLayerShadow(color: UIColor(red:0, green:0, blue:0, alpha:0.1), offset: CGSize(width: 0, height: 2), radius: 6)
         layer.layer.cornerRadius = 2
         self.layer.masksToBounds = true
         contentView.addSubview(layer)

@@ -43,6 +43,7 @@ class BaseExpandableTVC: UITableViewController, BaseExpandableHeaderViewDelegate
     
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: baseEexpandableCellId)
     }
+
     
     //MARK: - Actions
     @objc func handleExpandClose(button: UIButton) {
