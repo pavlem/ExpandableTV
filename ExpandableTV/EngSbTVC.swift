@@ -96,9 +96,13 @@ class EngSbTVC: BaseExpandableTVC {
             headerView.addSubview(viewBlocker)
         }
         
-        let headerTitle = UILabel(frame: CGRect(x: 30, y: 30, width: self.view.frame.width, height: 20))
-        headerTitle.text = sectionsDataSource[section].expandableSectionTitle
+        let headerTitle = UILabel(frame: CGRect(x: 30, y: 15, width: self.view.frame.width, height: 20))
+        headerTitle.text = sectionsDataSource[section].engagementType
         headerView.addSubview(headerTitle)
+        
+        let engNumber = UILabel(frame: CGRect(x: 30, y: 30, width: self.view.frame.width, height: 20))
+        engNumber.text = String(sectionsDataSource[section].engagementNumber)
+        headerView.addSubview(engNumber)
         
         if section == 0 {
             fixHeaderElementsForFirstSection(headerView: headerView)
