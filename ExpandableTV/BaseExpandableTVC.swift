@@ -18,7 +18,7 @@ class BaseExpandableTVC: UITableViewController, BaseExpandableHeaderViewDelegate
     
     //MARK: - API
     var baseSectionsDataSource = [BaseExpandableSectionData]()
-    var expandableSectionHeaderViewHeight = CGFloat(46)
+    var baseSectionHeaderViewHeight = CGFloat(46)
     
     func setExpandableArrow(frame: CGRect, tint: UIColor) {
         isExpandableArrowShown = true
@@ -77,14 +77,14 @@ class BaseExpandableTVC: UITableViewController, BaseExpandableHeaderViewDelegate
 extension BaseExpandableTVC {
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
-        let headerFrame = CGRect(x: 0, y: 0, width: Int(self.view.frame.width), height: Int(expandableSectionHeaderViewHeight))
+        let headerFrame = CGRect(x: 0, y: 0, width: Int(self.view.frame.width), height: Int(baseSectionHeaderViewHeight))
         let hView = BaseExpandableHeaderView(frame: headerFrame, section: section, toggleArrow: isExpandableArrowShown ? ToggleArrow(frame: expandableArrowIndicatorFrame!, expandedImage: #imageLiteral(resourceName: "arrowDown"), collapsedImage: #imageLiteral(resourceName: "arrowRight"), tint: expandableArrowIndicatorTintColour) : nil, isSectionExpanded: baseSectionsDataSource[section].isExpanded)
         hView.delegate = self
         return hView
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return expandableSectionHeaderViewHeight
+        return baseSectionHeaderViewHeight
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {

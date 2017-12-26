@@ -117,3 +117,64 @@ class BaseExpandableHeaderView: UIView {
         delegate?.handleExpandClose(button: button)
     }
 }
+
+//MARK: - Expandable Engagement List
+extension BaseExpandableHeaderView {
+    
+    //Computed constants
+    var firstSectionHeaderFixForAllElements: CGFloat { return CGFloat(5) }
+    var headerBackgroundRectHeight: CGFloat { return CGFloat(60) }
+    var headerBackgroundRectXPadding: CGFloat { return CGFloat(10) }
+
+    //API
+    func setEngamentsExpandableHeader(section: Int, sectionDataSource: ExpandableEngagementSectionData, isExpanded: Bool) {
+        
+        self.backgroundColor = UIColor.white
+        self.arrowTint = tintColor
+        
+        let backgroundRect = UIView(frame: CGRect(x: headerBackgroundRectXPadding, y: 0, width: self.frame.width - 2*headerBackgroundRectXPadding, height: headerBackgroundRectHeight))
+        UIView.setCustomShadow(mainView: self, shadowView: backgroundRect)
+        if isExpanded {
+            backgroundRect.frame.size.height = headerBackgroundRectHeight + 40
+            backgroundRect.backgroundColor = .white
+        }
+        
+        if isExpanded {
+            let viewBlocker = UIView(frame: CGRect(x: 10, y: self.frame.height - 20, width: self.frame.width - 20, height: 40))
+            viewBlocker.backgroundColor = .white
+            self.addSubview(viewBlocker)
+        }
+        
+        let backgroundRectCenterY = self.center.y - 11
+        
+        let headerTitle = UILabel()
+        headerTitle.text = sectionDataSource.engagementType
+        headerTitle.backgroundColor = .red
+        headerTitle.textColor = UIColor(red:0.13, green:0.15, blue:0.19, alpha:1)
+        headerTitle.textAlignment = .left
+        headerTitle.font = UIFont.boldSystemFont(ofSize: 15)
+        headerTitle.frame = CGRect(x:30, y:backgroundRectCenterY,width:headerTitle.intrinsicContentSize.width,height:headerTitle.intrinsicContentSize.height)
+        self.addSubview(headerTitle)
+        
+        let engNumber = UILabel()
+        engNumber.text = String(sectionDataSource.engagementNumber)
+        engNumber.backgroundColor = .orange
+        engNumber.textColor = UIColor(red:0.75, green:0.76, blue:0.77, alpha:1)
+        engNumber.textAlignment = .left
+        engNumber.font = UIFont.boldSystemFont(ofSize: 15)
+        let engNumberFr = headerTitle.frame.origin.x + headerTitle.frame.size.width + 10
+        engNumber.frame = CGRect(x:engNumberFr,y:backgroundRectCenterY,width:engNumber.intrinsicContentSize.width,height:engNumber.intrinsicContentSize.height)
+        self.addSubview(engNumber)
+        
+        if section == 0 {
+            fixHeaderElementsForFirstSection()
+        }
+    }
+    
+    func fixHeaderElementsForFirstSection() {
+        for v in self.subviews {
+            v.frame.origin.y += firstSectionHeaderFixForAllElements
+            self.bringSubview(toFront: v)
+        }
+    }
+}

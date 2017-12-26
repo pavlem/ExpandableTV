@@ -48,8 +48,7 @@ class EngSbCell: UITableViewCell {
         super.awakeFromNib()
         
         setUI()
-        
-        self.setupCustomCellAppearance(layer: backgroundRect)
+        setupCustomCellAppearance(layer: backgroundRect)
     }
     
     //MARK: - Helper

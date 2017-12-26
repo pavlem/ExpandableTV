@@ -15,6 +15,15 @@ struct ExpandableEngagementData {
     var status: String
     var imageUrl: String
     var isEditable: Bool
+    var engUID: Bool?
+    
+    init(title: String, description: String, status: String, imageUrl: String, isEditable: Bool) {
+        self.title = title
+        self.description = description
+        self.status = status
+        self.imageUrl = imageUrl
+        self.isEditable = isEditable
+    }
 }
 
 struct ExpandableEngagementSectionData {
@@ -27,45 +36,51 @@ struct ExpandableEngagementSectionData {
 
 class EngSbTVC: BaseExpandableTVC {
     
+    //MARK: - API
+    func set(sectionDataSource: [ExpandableEngagementSectionData]) {
+        sectionsDataSource = sectionDataSource
+    }
+    
     //MARK: - Properties
     //Var
-    var sectionsDataSource = [ExpandableEngagementSectionData]()
+    private var sectionsDataSource = [ExpandableEngagementSectionData]()
     //Constants
-    let engSBCellId = "engSBCell_ID"
-    let headerViewHeight = CGFloat(65)
-    let heightForRowAtIndexPath = CGFloat(65)
-    let headerBackgroundRectHeight = CGFloat(60)
-    let headerBackgroundRectYPadding = CGFloat(10)
-    let headerBackgroundRectXPadding = CGFloat(10)
-    let lastRowInSectionShadowFix = CGFloat(15)
-    let lastSectionShadowFix = CGFloat(30)
-    let firstSectionHeaderFixForAllElements = CGFloat(5)
-    let tintColor = UIColor(red:0.25, green:0.3, blue:0.72, alpha:1.0)
+    private let engSBCellId = "engSBCell_ID"
+    private let headerViewHeight = CGFloat(65)
+    private let heightForRowAtIndexPath = CGFloat(65)
+    private let lastRowInSectionShadowFix = CGFloat(15)
+    private let lastSectionShadowFix = CGFloat(30)
+    private let tintColor = UIColor(red:0.25, green:0.3, blue:0.72, alpha:1.0)
+    private let firstSectionHeaderFixForAllElements = CGFloat(5)
 
-    
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //Set custom properties
-        expandableSectionHeaderViewHeight = headerViewHeight
-        setExpandableArrow(frame: CGRect(x: self.view.frame.width - 40, y: 25, width:10, height: 10), tint: .black)
-        sectionsDataSource = EngSbCell.getMocData()
-
-        for expSection in sectionsDataSource {
-            baseSectionsDataSource.append(BaseExpandableSectionData(isExpanded: expSection.isExpanded, numberOfRowsInSection: expSection.numberOfRowsInSection))
-        }
-        
-        tableView.tintColor = tintColor
+        setBaseExpandableProperties()
+        set(sectionDataSource: EngSbCell.getMocData())
+        mapToExpandableListModel(sectionsDataSource: sectionsDataSource)
+        setUI()
     }
     
     //MARK: - Helper
-    private func fixHeaderElementsForFirstSection(headerView: UIView) {
-        
-        for v in headerView.subviews {
-            v.frame.origin.y += firstSectionHeaderFixForAllElements
-            headerView.bringSubview(toFront: v)
+    private func setDataSource() {
+        sectionsDataSource = EngSbCell.getMocData()
+    }
+    
+    private func setBaseExpandableProperties() {
+        baseSectionHeaderViewHeight = headerViewHeight
+        setExpandableArrow(frame: CGRect(x: self.view.frame.width - 40, y: 25, width:10, height: 10), tint: .black)
+    }
+    
+    private func mapToExpandableListModel(sectionsDataSource: [ExpandableEngagementSectionData]) {
+        for expSection in sectionsDataSource {
+            baseSectionsDataSource.append(BaseExpandableSectionData(isExpanded: expSection.isExpanded, numberOfRowsInSection: expSection.numberOfRowsInSection))
         }
+    }
+    
+    private func setUI() {
+        tableView.tintColor = tintColor
     }
 
     //MARK: - Actions
@@ -74,53 +89,13 @@ class EngSbTVC: BaseExpandableTVC {
         
         tableView.reloadSections(IndexSet(integer: button.tag), with: .automatic)
     }
-    
-    //MARK: - TableView
-    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        let view = tableView.dequeueReusableCell(withIdentifier: "engSBHeaderCell_ID")!
-        let headerView = super.tableView(tableView, viewForHeaderInSection: section)! as! BaseExpandableHeaderView
-        
-        headerView.backgroundColor = UIColor.white
-        headerView.arrowTint = tintColor
-        
-        let backgroundRect = UIView(frame: CGRect(x: headerBackgroundRectXPadding, y: 0, width: self.view.frame.width - 2*headerBackgroundRectXPadding, height: headerBackgroundRectHeight))
-        UIView.setCustomShadow(mainView: headerView, shadowView: backgroundRect)
-        if baseSectionsDataSource[section].isExpanded {
-            backgroundRect.frame.size.height = headerBackgroundRectHeight + 40
-            backgroundRect.backgroundColor = .white
-        }
-        
-        if baseSectionsDataSource[section].isExpanded {
-            let viewBlocker = UIView(frame: CGRect(x: 10, y: headerView.frame.height - 20, width: self.view.frame.width - 20, height: 40))
-            viewBlocker.backgroundColor = .white
-            headerView.addSubview(viewBlocker)
-        }
-        
-        let backgroundRectCenterY = headerView.center.y - 11
+}
 
-        let headerTitle = UILabel()
-        headerTitle.text = sectionsDataSource[section].engagementType
-//        headerTitle.backgroundColor = .red
-        headerTitle.textColor = UIColor(red:0.13, green:0.15, blue:0.19, alpha:1)
-        headerTitle.textAlignment = .left
-        headerTitle.font = UIFont.boldSystemFont(ofSize: 15)
-        headerTitle.frame = CGRect(x:30, y:backgroundRectCenterY,width:headerTitle.intrinsicContentSize.width,height:headerTitle.intrinsicContentSize.height)
-        headerView.addSubview(headerTitle)
-        
-        let engNumber = UILabel()
-        engNumber.text = String(sectionsDataSource[section].engagementNumber)
-//        engNumber.backgroundColor = .orange
-        engNumber.textColor = UIColor(red:0.75, green:0.76, blue:0.77, alpha:1)
-        engNumber.textAlignment = .left
-        engNumber.font = UIFont.boldSystemFont(ofSize: 15)
-        let engNumberFr = headerTitle.frame.origin.x + headerTitle.frame.size.width + 10
-        engNumber.frame = CGRect(x:engNumberFr,y:backgroundRectCenterY,width:engNumber.intrinsicContentSize.width,height:engNumber.intrinsicContentSize.height)
-        
-        headerView.addSubview(engNumber)
-        
-        if section == 0 {
-            fixHeaderElementsForFirstSection(headerView: headerView)
-        }
+//MARK: - TableView Delegate and Datasource
+extension EngSbTVC {
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = super.tableView(tableView, viewForHeaderInSection: section)! as! BaseExpandableHeaderView
+        headerView.setEngamentsExpandableHeader(section: section, sectionDataSource: sectionsDataSource[section], isExpanded: baseSectionsDataSource[section].isExpanded)
         return headerView
     }
     
@@ -132,16 +107,16 @@ class EngSbTVC: BaseExpandableTVC {
         
         return section == 0 ? headerViewHeight + firstSectionHeaderFixForAllElements : headerViewHeight
     }
-
+    
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-       
+        
         let sectionRows = baseSectionsDataSource[indexPath.section]
         
         //Last section shadow fix
         if sectionRows.numberOfRowsInSection == indexPath.row + 1 {
             //Last row in last section shadow fix
             if sectionsDataSource.count == indexPath.section + 1 {
-               return heightForRowAtIndexPath + lastSectionShadowFix
+                return heightForRowAtIndexPath + lastSectionShadowFix
             }
             
             return heightForRowAtIndexPath + lastRowInSectionShadowFix
@@ -171,13 +146,13 @@ class EngSbTVC: BaseExpandableTVC {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("didSelectRowAt")
-        print(indexPath)
+        print("didSelectRowAt__" + String(describing: indexPath))
     }
 }
 
+//MARK: - EngagementTabCellProtocol
 extension EngSbTVC: EngagementTabCellProtocol {
     func editButtonTapped(indexPath: IndexPath) {
-        print("editButtonTapped from TableView____" + String(describing: indexPath))
+        print("didTapRowBtnAt__" + String(describing: indexPath))
     }
 }
