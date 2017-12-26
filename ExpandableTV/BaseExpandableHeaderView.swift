@@ -130,7 +130,7 @@ extension BaseExpandableHeaderView {
 
 
     //API
-    func setEngamentsExpandableHeader(section: Int, sectionDataSource: ExpandableEngagementSectionData, isExpanded: Bool) {
+    func setEngagementsExpandableListHeader(section: Int, sectionDataSource: ExpandableEngagementSectionData, isExpanded: Bool) {
         
         self.arrowTint = tintColor
         

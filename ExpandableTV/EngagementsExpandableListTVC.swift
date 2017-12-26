@@ -34,7 +34,7 @@ struct ExpandableEngagementSectionData {
     var engagementNumber: Int
 }
 
-class EngSbTVC: BaseExpandableTVC {
+class EngagementsExpandableListTVC: BaseExpandableTVC {
     
     //MARK: - API
     func set(sectionDataSource: [ExpandableEngagementSectionData]) {
@@ -58,14 +58,14 @@ class EngSbTVC: BaseExpandableTVC {
         super.viewDidLoad()
         
         setBaseExpandableProperties()
-        set(sectionDataSource: EngSbCell.getMocData())
+        set(sectionDataSource: EngagementsExpandableListCell.getMocData())
         mapToExpandableListModel(sectionsDataSource: sectionsDataSource)
         setUI()
     }
     
     //MARK: - Helper
     private func setDataSource() {
-        sectionsDataSource = EngSbCell.getMocData()
+        sectionsDataSource = EngagementsExpandableListCell.getMocData()
     }
     
     private func setBaseExpandableProperties() {
@@ -92,10 +92,10 @@ class EngSbTVC: BaseExpandableTVC {
 }
 
 //MARK: - TableView Delegate and Datasource
-extension EngSbTVC {
+extension EngagementsExpandableListTVC {
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = super.tableView(tableView, viewForHeaderInSection: section)! as! BaseExpandableHeaderView
-        headerView.setEngamentsExpandableHeader(section: section, sectionDataSource: sectionsDataSource[section], isExpanded: baseSectionsDataSource[section].isExpanded)
+        headerView.setEngagementsExpandableListHeader(section: section, sectionDataSource: sectionsDataSource[section], isExpanded: baseSectionsDataSource[section].isExpanded)
         return headerView
     }
     
@@ -137,8 +137,8 @@ extension EngSbTVC {
         return baseSectionsDataSource[section].numberOfRowsInSection
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> EngSbCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: engSBCellId, for: indexPath) as! EngSbCell
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> EngagementsExpandableListCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: engSBCellId, for: indexPath) as! EngagementsExpandableListCell
         cell.delegate = self
         let expandableEngagementSectionData = sectionsDataSource[indexPath.section]
         cell.expandableEngagementData = expandableEngagementSectionData.expandableData[indexPath.row]
@@ -151,7 +151,7 @@ extension EngSbTVC {
 }
 
 //MARK: - EngagementTabCellProtocol
-extension EngSbTVC: EngagementTabCellProtocol {
+extension EngagementsExpandableListTVC: EngagementsExpandableListProtocol {
     func editButtonTapped(indexPath: IndexPath) {
         print("didTapRowBtnAt__" + String(describing: indexPath))
     }

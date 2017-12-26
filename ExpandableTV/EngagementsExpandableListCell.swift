@@ -9,11 +9,11 @@
 import UIKit
 import Kingfisher
 
-protocol EngagementTabCellProtocol: class {
+protocol EngagementsExpandableListProtocol: class {
     func editButtonTapped(indexPath: IndexPath)
 }
 
-class EngSbCell: UITableViewCell {
+class EngagementsExpandableListCell: UITableViewCell {
 
     //MARK: - API
     var expandableEngagementData: ExpandableEngagementData? {
@@ -22,7 +22,7 @@ class EngSbCell: UITableViewCell {
         }
     }
     
-    weak var delegate: EngagementTabCellProtocol?
+    weak var delegate: EngagementsExpandableListProtocol?
     
     //MARK: - Properties
     private var cellTint: UIColor? {
@@ -74,7 +74,7 @@ class EngSbCell: UITableViewCell {
     }
 }
 
-extension EngSbCell {
+extension EngagementsExpandableListCell {
     class func getMocData() -> [ExpandableEngagementSectionData] {
         let section1 = [
             ExpandableEngagementData(title: "Row - 00", description: "Row - 00 - description", status: "Finished", imageUrl: "http://microblogging.wingnity.com/JSONParsingTutorial/jolie.jpg", isEditable: true),
