@@ -132,7 +132,8 @@ extension BaseExpandableHeaderView {
     //API
     func setEngagementsExpandableListHeader(section: Int, sectionDataSource: ExpandableEngagementSectionData, isExpanded: Bool) {
         
-        self.arrowTint = tintColor
+        arrowTint = tintColor
+        backgroundColor = .white
         
         let backgroundRect = UIView(frame: CGRect(x: headerBackgroundRectXPadding, y: 0, width: self.frame.width - 2*headerBackgroundRectXPadding, height: headerBackgroundRectHeight))
         UIView.setCustomShadow(mainView: self, shadowView: backgroundRect)
